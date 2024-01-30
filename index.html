@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal - Snippets</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">PDimitrow</a>
+
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Home</a></li>
+      </ul>
+    </header>
+    <section class="top">
+      <img src="/img/stars.png" alt="" id="stars" />
+      <img src="/img/moon.png" alt="" id="moon" />
+      <img src="/img/mountains_behind.png" alt="" id="mountains_behind" />
+      <h2 id="text">Design</h2>
+      <a href="#start" class="btn">Let's go</a>
+      <img src="/img/mountains_front.png" alt="" id="mountains_front" />
+    </section>
+
+    <section id="start" class="sec">
+      <div class="section-heading">
+        <p><span>01</span> Responsive youtube Video Embed</p>
+      </div>
+      <div class="grid-2">
+        <div class="code-box box-2">
+          <p class="box-heading html">Html code</p>
+          <pre class="responsive-text">
+            <code>
+&lt;<span class="tag">div</span> <span class="attr-name">class</span>=<span class="attr-value">"video-container"</span>&gt;
+  &lt;<span class="tag">iframe</span> <span class="attr-name">width</span>=<span class="attr-value">"560"</span> <span class="attr-name">height</span>=<span class="attr-value">"315"</span> <span class="attr-name">src</span>=<span class="attr-value">"https://www.youtube.com/embed/VIDEO_ID"</span> <span class="attr-name">frameborder</span>=<span class="attr-value">"0"</span> <span class="attr-name">allowfullscreen</span>&gt;&lt;<span class="tag">/iframe</span>&gt;
+&lt;<span class="tag">div</span>&gt;     
+            </code>
+        </pre>
+        </div>
+        <div class="code-box">
+          <p class="box-heading css">Css code</p>
+          <div class="box-item">
+            <p><span class="class">.video-container</span> {</p>
+            <p>
+              <span class="classes">position</span><span class="dots">:</span>
+              <span class="num">relative</span>;
+            </p>
+            <p>
+              <span class="classes">padding-bottom</span
+              ><span class="dots">:</span> <span class="num">56.25</span
+              ><span class="symb">%</span>;
+              <span class="com">/* 16:9 aspect ratio (height/width) */</span>
+            </p>
+            <p>
+              <span class="classes">padding-top</span
+              ><span class="dots">:</span> <span class="num">30</span
+              ><span class="symb">px</span>;
+            </p>
+            <p>
+              <span class="classes">height</span><span class="dots">:</span>
+              <span class="num">0</span>;
+            </p>
+            <p>
+              <span class="classes">overflow</span><span class="dots">:</span>
+              <span class="num">hidden</span>;
+            </p>
+            <p>}</p>
+          </div>
+          <p>
+            <span class="class">.video-container</span>
+            <span class="selector">iframe</span>,
+          </p>
+          <p>
+            <span class="class">.video-container</span>
+            <span class="selector">object</span>,
+          </p>
+          <p>
+            <span class="class">.video-container</span>
+            <span class="selector">embed</span>{
+          </p>
+          <p>
+            <span class="classes">position</span><span class="dots">:</span>
+            <span class="num">absolute</span>;
+          </p>
+          <p>
+            <span class="classes">top</span><span class="dots">:</span>
+            <span class="num">0</span>;
+          </p>
+          <p>
+            <span class="classes">left</span><span class="dots">:</span>
+            <span class="num">0</span>;
+          </p>
+          <p>
+            <span class="classes">width</span><span class="dots">:</span>
+            <span class="num">100</span><span class="symb">%</span>;
+          </p>
+          <p>
+            <span class="classes">height</span><span class="dots">:</span>
+            <span class="num">100</span><span class="symb">%</span>;
+          </p>
+          <p>}</p>
+        </div>
+
+        <div class="code-box">
+          <p class="box-heading exa">Example</p>
+          <div class="video-container">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/6H40lhp2bGw"
+              frameborder="0"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script defer src="js.js"></script>
+  </body>
+</html>
