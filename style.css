@@ -149,11 +149,38 @@ header ul li a .active {
   transition: all 0.1s ease; /* Transition effect for elements */
 }
 
+.section-heading {
+  transition: all 0.2s ease;
+}
+
 .section-heading span {
   font-size: 10rem;
   font-weight: 700;
   color: #ffffff;
   text-shadow: rgb(255, 255, 255) 0px 0 20px;
+  animation: glow 4s linear infinite;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: rgba(255, 255, 255, 0.048) 0px 0 20px;
+  }
+
+  20% {
+    text-shadow: rgba(255, 255, 255, 0.582) 0px 0 20px;
+  }
+
+  50% {
+    text-shadow: rgba(255, 255, 255, 0.993) 0px 0 20px;
+  }
+
+  75% {
+    text-shadow: rgba(255, 255, 255, 0.582) 0px 0 20px;
+  }
+
+  100% {
+    text-shadow: rgba(255, 255, 255, 0.041) 0px 0 20px;
+  }
 }
 
 .section-heading p {
@@ -284,4 +311,8 @@ code span.comment {
 
 .responsive-text {
   text-wrap: wrap;
+}
+
+.left-side {
+  text-align: end;
 }
