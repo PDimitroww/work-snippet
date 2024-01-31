@@ -196,7 +196,7 @@ header ul li a .active {
 .code-box {
   border: 2px solid #444647;
   background-color: #1e1f26;
-  margin: 0px 20px;
+  margin: 0px 10px;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -264,6 +264,14 @@ code span.comment {
   color: #888; /* Gray color for comments */
 }
 
+.attr-value-2 {
+  color: #8cff5d;
+}
+
+.attr-name-2 {
+  color: #ff8761;
+}
+
 .class {
   color: #00ff00;
 }
@@ -272,6 +280,14 @@ code span.comment {
 .dots,
 .symb {
   color: #ff51cb;
+}
+
+.classes-2 {
+  color: #3a92ff;
+}
+
+.hta-txt {
+  color: #e13d3d;
 }
 
 .classes {
@@ -283,11 +299,20 @@ code span.comment {
 }
 
 .com {
-  color: #3c4061;
+  color: #40598c;
+}
+
+.class-txt {
+  color: #b1b8bb;
 }
 
 .box-item {
   margin-bottom: 50px;
+}
+
+.hta {
+  color: #ff1b1b !important;
+  text-shadow: #ff1b1b 0px 0 20px;
 }
 
 .video-container {
@@ -315,4 +340,46 @@ code span.comment {
 
 .left-side {
   text-align: end;
+}
+
+.class-txt {
+  color: #444647;
+}
+
+.img-fluid {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.php,
+.func-sym-2 {
+  color: #ff51cb;
+}
+
+.func {
+  color: #2eb2ff;
+}
+
+.func-name {
+  color: #fffebc;
+}
+
+.func-sym {
+  color: #ffe600;
+}
+
+.func-par {
+  color: #b3eaff;
+}
+
+.func-text {
+  color: #ff9372;
+}
+
+.ret {
+  color: #ffa4e4;
 }

@@ -53,7 +53,9 @@
               <span class="classes">padding-bottom</span
               ><span class="dots">:</span> <span class="num">56.25</span
               ><span class="symb">%</span>;
-              <span class="com">/* 16:9 aspect ratio (height/width) */</span>
+              <span class="com">
+                &nbsp;&nbsp;&nbsp;/* 16:9 aspect ratio (height/width) */</span
+              >
             </p>
             <p>
               <span class="classes">padding-top</span
@@ -125,19 +127,69 @@
       </div>
 
       <div class="section-heading left-side">
-        <p>Coming soon <span>02</span></p>
+        <p>.Htaccess <span>02</span></p>
       </div>
 
       <div class="grid-2">
-        <div class="code-box box-2">
-          <p class="box-heading html">Coming soon</p>
-        </div>
         <div class="code-box">
-          <p class="box-heading css">Coming soon</p>
+          <p class="box-heading hta">.Htaccess</p>
+
+          <pre>                
+            <code>
+              <span class="com mb-4">#When you have to redirect a string but only the part after the query (?) gets redirected (WordPress sites)</span>
+              
+              <span><span class="attr-value-2">RewriteCond</span></span> <span class="attr-name-2">%{QUERY_STRING}</span> <span class="class-txt">.</span>
+              <span><span class="attr-value-2">RewriteRule</span></span> <span class="hta-txt">^events$ /?</span><span class="classes-2"> [R=301,L]</span>
+            </code>
+          </pre>
         </div>
 
         <div class="code-box">
-          <p class="box-heading exa">Coming soon</p>
+          <p class="box-heading exa">Example</p>
+
+          <img
+            src="/img/redirect.jpg"
+            alt="Redirect"
+            width="492"
+            height="259"
+            class="img-fluid" />
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <p><span>03</span> WordPress Functions</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="code-box">
+          <p class="box-heading hta">Functions.php</p>
+
+          <pre>                
+            <code>
+             <span class="com mb-4">#Adjust if needed</span>
+
+             <span class="php"> &lt;?php</span>
+                <span><span class="func">function</span> <span class="func-name">remove_content_more_link_id</span><span class="func-sym">(</span><span class="func-par">$content</span><span class="func-sym">)</span> <span class="func-sym">{</span></span>
+                    <span><span class="func">global</span> <span class="func-par">$post</span>;</span>
+                    <span><span class="func-par">$content</span> = <span class="func-name">str_replace</span><span class="func-sym-2">(</span><span class="func-text">'#more-'</span> . <span class="func-par">$post</span>-&gt;<span class="func-par"></span><span class="func-par">ID</span>, <span class="func-text">" "</span>, <span class="func-par">$content</span><span class="func-sym-2">)</span>;</span>
+                    <span><span class="ret">return</span> <span class="func-par">$content</span>;</span>
+              <span class="func-sym">}</span>
+              
+              <span><span class="func-name">add_filter</span><span class="func-sym">(</span><span class="func-text">'the_content'</span>, <span class="func-text">'remove_content_more_link_id'</span><span class="func-sym">)</span>;</span>
+              <span class="php">?&gt;</span>
+            </code>
+          </pre>
+        </div>
+
+        <div class="code-box">
+          <p class="box-heading exa">Example</p>
+
+          <img
+            src="/img/id.jpg"
+            alt="wp id-s"
+            width="492"
+            height="259"
+            class="img-fluid" />
         </div>
       </div>
     </section>
