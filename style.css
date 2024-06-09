@@ -383,3 +383,157 @@ code span.comment {
 .ret {
   color: #ffa4e4;
 }
+
+.container {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type="text"] {
+  width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #28a745;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #218838;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: #eee;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button.delete {
+  background: #dc3545;
+  text-decoration: none;
+}
+
+button.delete:hover {
+  background: #c82333;
+}
+
+li.completed {
+  text-decoration: line-through;
+  background-color: #1c0522;
+  color:#fff;
+}
+
+li.completed button.delete {
+  text-decoration: none;
+}
+
+.checklist-container {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.checklist-container h1 {
+  margin-bottom: 20px;
+}
+
+.checklist-input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checklist-input-container input[type="text"] {
+  width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.checklist-input-container button {
+  padding: 10px 15px;
+  background: #28a745;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checklist-input-container button:hover {
+  background: #218838;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: #eee;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.completed a {
+  text-decoration: line-through;
+}
+
+header li {
+  background-color: transparent !important;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  text-align: center;
+}
+
+.text-box p:nth-child(odd) {
+  margin-bottom: 20px;
+}
+
+.fyi {
+  color: #ffb922 !important;
+  text-shadow: #ffb922 0px 0 20px;
+}
