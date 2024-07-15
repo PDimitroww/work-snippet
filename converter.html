@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal - Snippets</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="converter.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/index.html" class="logo">PDimitrow</a>
+
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/check.html">Check list</a></li>
+        <li><a href="/converter.html">Hungarian Converter</a></li>
+      </ul>
+    </header>
+
+    <section class="banner pb-5">
+        <div class="text-center bg">
+            <h1>Power Sites tools</h1>
+            <p>Unlock the full potential of your development workflow with my curated collection of code snippets and innovative tools designed to streamline our team's productivity and efficiency. Dive in and discover the power of simplicity!</p>
+        </div>
+      </section>
+
+      <div class="chatenai-separator">
+        <img alt="" loading="lazy" width="1900" height="120" decoding="async" data-nimg="1" class="w-100" style="color:transparent;/* width: 100%; *//* max-width: 100%; */background-size: contain;" src="/img/separator.svg">
+      </div>
+
+  <div class="container">
+    <h1 class="title">Hungarian Text to HTML Converter</h1>
+    <textarea
+      id="inputText"
+      class="input-text"
+      placeholder="Enter your Hungarian text here..."
+    ></textarea>
+    <button class="convert-button" onclick="convertToHTML()">
+      Convert to HTML
+    </button>
+
+    <h2 class="subtitle">Generated HTML</h2>
+    <pre id="outputHTML" class="output-html">Somethings coming here :)</pre>
+
+    <h2 class="subtitle">Formatting Instructions</h2>
+    <div class="instructions">
+      <p>To format your text, use the following markers:</p>
+      <div class="grid">
+        <ul>
+            <li>
+              <strong>#</strong> before a line for
+              <strong>Heading 1</strong> (e.g., <code># Heading 1</code>)
+            </li>
+            <li>
+              <strong>##</strong> before a line for
+              <strong>Heading 2</strong> (e.g., <code>## Heading 2</code>)
+            </li>
+            <li>
+              <strong>###</strong> before a line for
+              <strong>Heading 3</strong> (e.g., <code>### Heading 3</code>)
+            </li>
+            <li>
+              <strong>•</strong> at the beginning of lines for
+              <strong>Unordered List</strong> items (e.g., <code>• Item 1</code>)
+            </li>
+            <li>
+              <strong>1.</strong> at the beginning of lines for
+              <strong>Ordered List</strong> items (e.g., <code>1. Item 1</code>)
+            </li>
+            <li>Just type normally for <strong>Paragraphs</strong>.</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatenai-separator">
+    <img alt="" loading="lazy" width="1900" height="120" decoding="async" data-nimg="1" class="w-100" style="color:transparent" src="/img/separator-bottom.svg">
+  </div>
+
+  <footer>
+    <p>Coded with love ❤</p>
+  </footer>
+
+
+  <script defer src="js.js"></script>
+</body>
+</html>

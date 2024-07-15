@@ -191,3 +191,161 @@ function deleteTask(button) {
   li.remove();
   saveChecklistTasks();
 }
+
+
+// Hungarian
+
+function convertToHTML() {
+  let text = document.getElementById("inputText").value;
+  let lines = text.split("\n");
+
+  let htmlLines = [];
+  let inOrderedList = false;
+  let inUnorderedList = false;
+
+  lines.forEach((line, index) => {
+    const trimmedLine = line.trim();
+    const prevLine = index > 0 ? lines[index - 1].trim() : "";
+    const nextLine = index < lines.length - 1 ? lines[index + 1].trim() : "";
+
+    // Detect unordered list items
+    if (trimmedLine.startsWith("• ")) {
+      if (!inUnorderedList) {
+        if (inOrderedList) {
+          htmlLines.push("</ol>");
+          htmlLines.push(""); // Add empty line after closing ordered list
+          inOrderedList = false;
+        }
+        if (prevLine !== "") {
+          htmlLines.push(""); // Add empty line before opening unordered list
+        }
+        htmlLines.push("<ul>");
+        inUnorderedList = true;
+      }
+      htmlLines.push(`<li>${trimmedLine.slice(2)}</li>`);
+    }
+    // Detect ordered list items
+    else if (/^\d+\.\s/.test(trimmedLine)) {
+      if (!inOrderedList) {
+        if (inUnorderedList) {
+          htmlLines.push("</ul>");
+          htmlLines.push(""); // Add empty line after closing unordered list
+          inUnorderedList = false;
+        }
+        if (prevLine !== "") {
+          htmlLines.push(""); // Add empty line before opening ordered list
+        }
+        htmlLines.push("<ol>");
+        inOrderedList = true;
+      }
+      htmlLines.push(`<li>${trimmedLine.replace(/^\d+\.\s/, "")}</li>`);
+    }
+    // Detect headings with specific markers
+    else if (trimmedLine.startsWith("# ")) {
+      if (inOrderedList) {
+        htmlLines.push("</ol>");
+        htmlLines.push(""); // Add empty line after closing ordered list
+        inOrderedList = false;
+      }
+      if (inUnorderedList) {
+        htmlLines.push("</ul>");
+        htmlLines.push(""); // Add empty line after closing unordered list
+        inUnorderedList = false;
+      }
+      if (prevLine !== "") {
+        htmlLines.push(""); // Add empty line before heading
+      }
+      htmlLines.push(`<h1>${trimmedLine.slice(2)}</h1>`);
+      if (nextLine !== "") {
+        htmlLines.push(""); // Add empty line after heading
+      }
+    }
+    else if (trimmedLine.startsWith("## ")) {
+      if (inOrderedList) {
+        htmlLines.push("</ol>");
+        htmlLines.push(""); // Add empty line after closing ordered list
+        inOrderedList = false;
+      }
+      if (inUnorderedList) {
+        htmlLines.push("</ul>");
+        htmlLines.push(""); // Add empty line after closing unordered list
+        inUnorderedList = false;
+      }
+      if (prevLine !== "") {
+        htmlLines.push(""); // Add empty line before heading
+      }
+      htmlLines.push(`<h2>${trimmedLine.slice(3)}</h2>`);
+      if (nextLine !== "") {
+        htmlLines.push(""); // Add empty line after heading
+      }
+    }
+    else if (trimmedLine.startsWith("### ")) {
+      if (inOrderedList) {
+        htmlLines.push("</ol>");
+        htmlLines.push(""); // Add empty line after closing ordered list
+        inOrderedList = false;
+      }
+      if (inUnorderedList) {
+        htmlLines.push("</ul>");
+        htmlLines.push(""); // Add empty line after closing unordered list
+        inUnorderedList = false;
+      }
+      if (prevLine !== "") {
+        htmlLines.push(""); // Add empty line before heading
+      }
+      htmlLines.push(`<h3>${trimmedLine.slice(4)}</h3>`);
+      if (nextLine !== "") {
+        htmlLines.push(""); // Add empty line after heading
+      }
+    }
+    // Detect headings based on heuristic
+    else if (/^[A-ZÁÉÍÓÖŐÚÜŰ]/.test(trimmedLine) && trimmedLine.split(" ").length <= 6 && !trimmedLine.endsWith(".")) {
+      if (inOrderedList) {
+        htmlLines.push("</ol>");
+        htmlLines.push(""); // Add empty line after closing ordered list
+        inOrderedList = false;
+      }
+      if (inUnorderedList) {
+        htmlLines.push("</ul>");
+        htmlLines.push(""); // Add empty line after closing unordered list
+        inUnorderedList = false;
+      }
+      if (prevLine !== "") {
+        htmlLines.push(""); // Add empty line before heading
+      }
+      htmlLines.push(`<h2>${trimmedLine}</h2>`);
+      if (nextLine !== "") {
+        htmlLines.push(""); // Add empty line after heading
+      }
+    }
+    // Treat as paragraph
+    else {
+      if (inOrderedList) {
+        htmlLines.push("</ol>");
+        htmlLines.push(""); // Add empty line after closing ordered list
+        inOrderedList = false;
+      }
+      if (inUnorderedList) {
+        htmlLines.push("</ul>");
+        htmlLines.push(""); // Add empty line after closing unordered list
+        inUnorderedList = false;
+      }
+      if (trimmedLine !== "") {
+        htmlLines.push(`<p>${trimmedLine}</p>`);
+      }
+    }
+  });
+
+  // Close any remaining open lists
+  if (inOrderedList) {
+    htmlLines.push("</ol>");
+    htmlLines.push(""); // Add empty line after closing ordered list
+  }
+  if (inUnorderedList) {
+    htmlLines.push("</ul>");
+    htmlLines.push(""); // Add empty line after closing unordered list
+  }
+
+  let htmlText = htmlLines.join("\n");
+  document.getElementById("outputHTML").textContent = htmlText;
+}
