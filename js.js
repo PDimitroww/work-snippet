@@ -349,3 +349,49 @@ function convertToHTML() {
   let htmlText = htmlLines.join("\n");
   document.getElementById("outputHTML").textContent = htmlText;
 }
+
+function copyToClipboard() {
+  let outputHTML = document.getElementById("outputHTML");
+  let range = document.createRange();
+  range.selectNode(outputHTML);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  try {
+    document.execCommand("copy");
+
+    // Create a temporary element for the animation
+    let copyNotification = document.createElement("div");
+    copyNotification.innerText = "Copied!";
+    copyNotification.style.position = "fixed";
+    copyNotification.style.bottom = "20px";
+    copyNotification.style.right = "20px";
+    copyNotification.style.backgroundColor = "#7130c3";
+    copyNotification.style.color = "white";
+    copyNotification.style.padding = "10px";
+    copyNotification.style.borderRadius = "5px";
+    copyNotification.style.opacity = "0";
+    copyNotification.style.transition = "opacity 0.5s ease";
+
+    document.body.appendChild(copyNotification);
+
+    // Trigger the animation
+    setTimeout(() => {
+      copyNotification.style.opacity = "1";
+      setTimeout(() => {
+        copyNotification.style.opacity = "0";
+        setTimeout(() => {
+          document.body.removeChild(copyNotification);
+        }, 500);
+      }, 2000);
+    }, 0);
+
+  } catch (err) {
+    console.error("Failed to copy text", err);
+  }
+  window.getSelection().removeAllRanges(); // Clear selection
+}
+
+function clearText() {
+  document.getElementById("inputText").value = "";
+  document.getElementById("outputHTML").textContent = "";
+}
