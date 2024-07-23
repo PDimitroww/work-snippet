@@ -487,17 +487,19 @@ function convertToHTML() {
     htmlLines.push("</ul>");
   }
 
-// Format HTML output: ensure each element starts on a new line with one blank line between elements
-let htmlText = htmlLines.join("\n\n") // Ensure each element starts on a new line with one blank line between elements
-  .replace(/>\s*([^<\s][^<]*?)\s*</g, '>$1<') // Remove extra whitespace inside tags
-  .replace(/<\/li>\s*\n\s*/g, '</li>\n') // Ensure no blank line after </li>
-  .replace(/\n\s*\n+(?=<p>)/g, '\n') // Ensure no blank line after </p>
-  .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
-  .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
+  // Format HTML output: ensure each element starts on a new line with one blank line between elements
+  let htmlText = htmlLines.join("\n\n") // Ensure each element starts on a new line with one blank line between elements
+    .replace(/>\s*([^<\s][^<]*?)\s*</g, '>$1<') // Remove extra whitespace inside tags
+    .replace(/<\/li>\s*\n\s*/g, '</li>\n') // Ensure no blank line after </li>
+    .replace(/\n\s*\n+(?=<p>)/g, '\n') // Ensure no blank line after </p>
+    .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
+    .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
+    .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;
 }
+
 
 
 
