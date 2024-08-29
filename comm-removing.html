@@ -15,19 +15,16 @@
         <li><a href="/" class="active">Home</a></li>
         <li><a href="/check.html">Check list</a></li>
         <li><a href="/converter.html">Text to Html</a></li>
-        <li><a href="/comm-removing.html">Html / Css / JS comm removing</a></li>
+        <li><a href="/comm-removing.html">Html / Css / JS comm removal</a></li>
       </ul>
     </header>
 
     <section class="banner pb-5">
       <div class="text-center bg">
-        <h1>Power Sites tools</h1>
-        <p>
-          Unlock the full potential of your development workflow with my curated
-          collection of code snippets and innovative tools designed to
-          streamline our team's productivity and efficiency. Dive in and
-          discover the power of simplicity!
-        </p>
+        <h1>Comments Removal <span class="beta">BETA</span></h1>
+        <p>This is a tool designed to automatically detect and remove comments from HTML, CSS, and JavaScript code. As a beta release, it is in the testing phase and may have some limitations or bugs. This tool helps streamline web development by cleaning up code, making it more concise and reducing file size for production use.</p>
+
+        <p class="bg-small">* Any feedback or bug reports would be appreciated <span class="warning">❤</span>.</p>
       </div>
     </section>
 
@@ -36,11 +33,13 @@
     </div>
 
     <div class="container">
-      <h1 class="title">Html / Css Comment Remover</h1>
+      <h1 class="title"></h1>
+
+      <h2 class="warning">Warning: Use with caution.</h2>
 
       <div class="row">
         <div class="grid-1-text">
-          <h2 class="subtitle">HTML / CSS Code</h2>
+          <h2 class="subtitle">HTML / CSS / JS Code</h2>
           <textarea
             id="inputCode"
             class="input-text"
@@ -48,7 +47,7 @@
           ></textarea>
           <div class="flex-row">
             <button class="convert-button" onclick="removeComments()">
-              Remove Comments
+              Remove Com.
             </button>
             <button class="convert-button" onclick="clearInputAndOutput()">
               Clear Text

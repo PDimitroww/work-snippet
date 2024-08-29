@@ -440,6 +440,7 @@ function convertToHTML() {
       .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
       .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
       .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
+      .replace(/<true>/g, ''); // Remove <true> tags
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;

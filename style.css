@@ -527,7 +527,7 @@ input[type="checkbox"] {
   border-radius: 4px;
   margin-bottom: 12px;
   display: inline-block;
-  padding: 7px 14px;
+  padding: 54px 30px;
   background-color: #0f1021;;
   box-shadow: 4px 4px 20px 20px rgba(0,0,0,.01);
   width: 60%;
@@ -538,6 +538,12 @@ input[type="checkbox"] {
 .bg p {
   color:#fff;
   margin-bottom: 10px;
+}
+
+.bg-small {
+  font-size: 13px;
+  color:#7330c3 !important;
+  margin-top: 40px;
 }
 
 header ul {
@@ -557,4 +563,12 @@ footer {
 
 footer p {
   color:#fff;
+}
+
+.beta {
+  -webkit-text-fill-color: #ffc400;
+}
+
+.warning {
+  color: #ff1f1f;
 }
