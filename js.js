@@ -362,87 +362,84 @@ function convertToHTML() {
   let isListItem = false;
 
   lines.forEach((line, index) => {
-    const trimmedLine = line.trim();
-    const normalizedLine = trimmedLine.replace(/\s+/g, ' ');
+      const trimmedLine = line.trim();
+      const normalizedLine = trimmedLine.replace(/\s+/g, ' ');
 
-    if (normalizedLine === "") {
-      // Handle empty lines only within lists and if not preceded by a list item
-      if (inOrderedList || inUnorderedList && !isListItem) {
-        htmlLines.push(`<li></li>`);
-        isListItem = true;
-      }
-    } else {
-      // Handle unordered list items
-      if (normalizedLine.startsWith("•")) {
-        if (!inUnorderedList) {
-          if (inOrderedList) {
-            htmlLines.push("</ol>");
-            inOrderedList = false;
+      if (normalizedLine === "") {
+          // Handle empty lines only within lists and if not preceded by a list item
+          if ((inOrderedList || inUnorderedList) && !isListItem) {
+              htmlLines.push(`<li></li>`);
+              isListItem = true;
           }
-          htmlLines.push("<ul>");
-          inUnorderedList = true;
-        }
-        htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
-        isListItem = true;
-      }
-      // Handle ordered list items
-      else if (/^\d+\.\s/.test(normalizedLine)) {
-        if (!inOrderedList) {
-          if (inUnorderedList) {
-            htmlLines.push("</ul>");
-            inUnorderedList = false;
+      } else {
+          // Handle unordered list items
+          if (normalizedLine.startsWith("•")) {
+              if (!inUnorderedList) {
+                  if (inOrderedList) {
+                      htmlLines.push("</ol>");
+                      inOrderedList = false;
+                  }
+                  htmlLines.push("<ul>");
+                  inUnorderedList = true;
+              }
+              htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
+              isListItem = true;
           }
-          htmlLines.push("<ol>");
-          inOrderedList = true;
-        }
-        htmlLines.push(`<li>${normalizedLine.replace(/^\d+\.\s/, "").trim()}</li>`);
-        isListItem = true;
-      }
-      // Handle headings with varying levels
-      else if (/^#+\s/.test(normalizedLine)) {
-        const headingLevel = normalizedLine.match(/^#+/)[0].length;
-        htmlLines.push(`<h${headingLevel}>${normalizedLine.slice(headingLevel + 1).trim()}</h${headingLevel}>`);
-        isListItem = false;
-      }
-      // Treat as paragraph
-      else {
-        if (inOrderedList) {
-          htmlLines.push("</ol>");
-          inOrderedList = false;
-        }
-        if (inUnorderedList) {
-          htmlLines.push("</ul>");
-          inUnorderedList = false;
-        }
-        if (normalizedLine !== "") {
-          // Add paragraph tags only if it is not a heading, list item, or list tag
-          if (!/<h\d>/.test(normalizedLine) && !/<ul>|<ol>|<\/ul>|<\/ol>|<li>/.test(normalizedLine)) {
-            htmlLines.push(`<p>${normalizedLine.trim()}</p>`);
-          } else {
-            htmlLines.push(normalizedLine.trim()); // Directly push headings, list tags, and list items without wrapping
+          // Handle ordered list items
+          else if (/^\d+\.\s/.test(normalizedLine)) {
+              if (!inOrderedList) {
+                  if (inUnorderedList) {
+                      htmlLines.push("</ul>");
+                      inUnorderedList = false;
+                  }
+                  htmlLines.push("<ol>");
+                  inOrderedList = true;
+              }
+              htmlLines.push(`<li>${normalizedLine.replace(/^\d+\.\s/, "").trim()}</li>`);
+              isListItem = true;
           }
-        }
-        isListItem = false;
+          // Handle headings with varying levels
+          else if (/^#+\s/.test(normalizedLine)) {
+              const headingLevel = normalizedLine.match(/^#+/)[0].length;
+              htmlLines.push(`<h${headingLevel}>${normalizedLine.slice(headingLevel + 1).trim()}</h${headingLevel}>`);
+              isListItem = false;
+          }
+          // Treat as paragraph
+          else {
+              if (inOrderedList || inUnorderedList) {
+                  htmlLines.push(`</${inOrderedList || inUnorderedList}>`);
+                  inOrderedList = false;
+                  inUnorderedList = false;
+              }
+              if (normalizedLine !== "") {
+                  // Add paragraph tags only if it is not a heading, list item, or list tag
+                  if (!/<h\d>/.test(normalizedLine) && !/<ul>|<ol>|<\/ul>|<\/ol>|<li>/.test(normalizedLine)) {
+                      htmlLines.push(`<p>${normalizedLine.trim()}</p>`);
+                  } else {
+                      htmlLines.push(normalizedLine.trim()); // Directly push headings, list tags, and list items without wrapping
+                  }
+              }
+              isListItem = false;
+          }
       }
-    }
   });
 
   // Close any remaining open lists
   if (inOrderedList) {
-    htmlLines.push("</ol>");
+      htmlLines.push("</ol>");
   }
   if (inUnorderedList) {
-    htmlLines.push("</ul>");
+      htmlLines.push("</ul>");
   }
 
   // Format HTML output: ensure each element starts on a new line with one blank line between elements
   let htmlText = htmlLines.join("\n\n") // Ensure each element starts on a new line with one blank line between elements
-    .replace(/>\s*([^<\s][^<]*?)\s*</g, '>$1<') // Remove extra whitespace inside tags
-    .replace(/<\/li>\s*\n\s*/g, '</li>\n') // Ensure no blank line after </li>
-    .replace(/\n\s*\n+(?=<p>)/g, '\n') // Ensure no blank line after </p>
-    .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
-    .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
-    .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
+      .replace(/>\s*([^<\s][^<]*?)\s*</g, '>$1<') // Remove extra whitespace inside tags
+      .replace(/<\/li>\s*\n\s*/g, '</li>\n') // Ensure no blank line after </li>
+      .replace(/\n\s*\n+(?=<p>)/g, '\n') // Ensure no blank line after </p>
+      .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
+      .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
+      .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;
