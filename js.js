@@ -1,23 +1,3 @@
-let stars = document.querySelector("#stars");
-let moon = document.querySelector("#moon");
-let mountains_behind = document.querySelector("#mountains_behind");
-let mountains_front = document.querySelector("#mountains_front");
-let text = document.querySelector("#text");
-let btn = document.querySelector(".btn");
-let header = document.querySelector("header");
-
-window.addEventListener("scroll", function () {
-  let value = window.scrollY;
-  stars.style.left = value * 0.25 + "px";
-  moon.style.top = value * 1.05 + "px";
-  mountains_behind.style.top = value * 0.5 + "px";
-  mountains_front.style.top = value * 0 + "px";
-  text.style.marginRight = value * 4 + "px";
-  text.style.marginTop = value * 1.5 + "px";
-  btn.style.marginTop = value * 1.5 + "px";
-  header.style.top = value * 0.5 + "px";
-});
-
 document.addEventListener('DOMContentLoaded', (event) => {
   loadTasks();
 });
@@ -372,31 +352,31 @@ function convertToHTML() {
               isListItem = true;
           }
       } else {
-          // Handle unordered list items
+         // Handle unordered list items
           if (normalizedLine.startsWith("•")) {
-              if (!inUnorderedList) {
-                  if (inOrderedList) {
-                      htmlLines.push("</ol>");
-                      inOrderedList = false;
-                  }
-                  htmlLines.push("<ul>");
-                  inUnorderedList = true;
-              }
-              htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
-              isListItem = true;
+            if (!inUnorderedList) {
+                if (inOrderedList) {
+                    htmlLines.push("</ol>");
+                    inOrderedList = false;
+                }
+                htmlLines.push("<ul>");
+                inUnorderedList = true;
+            }
+            htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
+            isListItem = true;
           }
           // Handle ordered list items
           else if (/^\d+\.\s/.test(normalizedLine)) {
-              if (!inOrderedList) {
-                  if (inUnorderedList) {
-                      htmlLines.push("</ul>");
-                      inUnorderedList = false;
-                  }
-                  htmlLines.push("<ol>");
-                  inOrderedList = true;
-              }
-              htmlLines.push(`<li>${normalizedLine.replace(/^\d+\.\s/, "").trim()}</li>`);
-              isListItem = true;
+            if (!inOrderedList) {
+                if (inUnorderedList) {
+                    htmlLines.push("</ul>");
+                    inUnorderedList = false;
+                }
+                htmlLines.push("<ol>");
+                inOrderedList = true;
+            }
+            htmlLines.push(`<li>${normalizedLine.replace(/^\d+\.\s/, "").trim()}</li>`);
+            isListItem = true;
           }
           // Handle headings with varying levels
           else if (/^#+\s/.test(normalizedLine)) {
@@ -440,7 +420,10 @@ function convertToHTML() {
       .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
       .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
       .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
-      .replace(/<true>/g, ''); // Remove <true> tags
+      .replace(/^\s*(<ul>)/m, '\n$1') // Add blank line before <ul>
+      .replace(/(<\/ul>)\s*/g, '$1\n') // Add blank line after </ul>
+      .replace(/^\s*(<ol>)/m, '\n$1') // Add blank line before <ol>
+      .replace(/(<\/ol>)\s*/g, '$1\n'); // Add blank line after </ol>
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;
