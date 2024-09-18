@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Power Sites Tools</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="converter.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/index.html" class="logo">PDimitrow</a>
+
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/check.html">Check list</a></li>
+        <li><a href="/converter.html">Text to Html</a></li>
+        <li><a href="/comm-removing.html">Comments removal</a></li>
+        <li><a href="/dup-removing.html">Duplicates and Queries</a></li>
+      </ul>
+    </header>
+
+    <section class="banner pb-5">
+      <div class="text-center bg">
+        <h1>Optimize Your .htaccess: Remove Queries and Duplicates <span class="beta">BETA</span></h1>
+        <p>Speed up the process of formatting your .htaccess file and get it ready for efficient redirection by removing unnecessary query strings and duplicate rules. This guide helps you streamline and sort your configuration for optimal performance.</p>
+
+      </div>
+    </section>
+
+    <div class="chatenai-separator">
+      <img width="1900" height="120" class="w-100" src="/img/separator.svg" />
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="grid-1-text">
+                <h2 class="subtitle">Redirects here</h2>
+                <textarea
+                    id="inputCode"
+                    class="input-text"
+                    placeholder="Enter your Text here..."
+                ></textarea>
+                <div class="flex-row">
+                    <button class="convert-button" onclick="cleanCode()">
+                        Clean Text
+                    </button>
+                    <button class="convert-button bg-2" onclick="clearInputAndOutput()">
+                        Clear Text
+                    </button>
+                </div>
+            </div>
+        
+            <div class="grid-2-text">
+                <h2 class="subtitle">Cleaned Redirects</h2>
+                <pre id="outputCode" class="output-html">Your output will be displayed here !</pre>
+        
+                <button class="convert-button" onclick="copyCleanedCode()">
+                    Copy
+                  </button>
+            </div>
+        </div>
+        
+
+      <div class="chatenai-separator">
+        <img width="1900" height="120" class="w-100" src="/img/separator-bottom.svg" />
+      </div>
+
+      <footer>
+        <p>Coded with love ❤</p>
+      </footer>
+
+      <script defer src="js.js"></script>
+    </div>
+  </body>
+</html>

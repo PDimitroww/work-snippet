@@ -172,166 +172,6 @@ function deleteTask(button) {
   saveChecklistTasks();
 }
 
-// OG function wrapper
-
-// function convertToHTML() {
-//   let text = document.getElementById("inputText").value;
-//   let lines = text.split("\n");
-
-//   let htmlLines = [];
-//   let inOrderedList = false;
-//   let inUnorderedList = false;
-
-//   lines.forEach((line, index) => {
-//     const trimmedLine = line.trim();
-//     const prevLine = index > 0 ? lines[index - 1].trim() : "";
-//     const nextLine = index < lines.length - 1 ? lines[index + 1].trim() : "";
-
-//     // Detect unordered list items
-//     if (trimmedLine.startsWith("• ")) {
-//       if (!inUnorderedList) {
-//         if (inOrderedList) {
-//           htmlLines.push("</ol>");
-//           htmlLines.push(""); // Add empty line after closing ordered list
-//           inOrderedList = false;
-//         }
-//         if (prevLine !== "") {
-//           htmlLines.push(""); // Add empty line before opening unordered list
-//         }
-//         htmlLines.push("<ul>");
-//         inUnorderedList = true;
-//       }
-//       htmlLines.push(`<li>${trimmedLine.slice(2)}</li>`);
-//     }
-//     // Detect ordered list items
-//     else if (/^\d+\.\s/.test(trimmedLine)) {
-//       if (!inOrderedList) {
-//         if (inUnorderedList) {
-//           htmlLines.push("</ul>");
-//           htmlLines.push(""); // Add empty line after closing unordered list
-//           inUnorderedList = false;
-//         }
-//         if (prevLine !== "") {
-//           htmlLines.push(""); // Add empty line before opening ordered list
-//         }
-//         htmlLines.push("<ol>");
-//         inOrderedList = true;
-//       }
-//       htmlLines.push(`<li>${trimmedLine.replace(/^\d+\.\s/, "")}</li>`);
-//     }
-//     // Detect headings with specific markers
-//     else if (trimmedLine.startsWith("# ")) {
-//       if (inOrderedList) {
-//         htmlLines.push("</ol>");
-//         htmlLines.push(""); // Add empty line after closing ordered list
-//         inOrderedList = false;
-//       }
-//       if (inUnorderedList) {
-//         htmlLines.push("</ul>");
-//         htmlLines.push(""); // Add empty line after closing unordered list
-//         inUnorderedList = false;
-//       }
-//       if (prevLine !== "") {
-//         htmlLines.push(""); // Add empty line before heading
-//       }
-//       htmlLines.push(`<h1>${trimmedLine.slice(2)}</h1>`);
-//       if (nextLine !== "") {
-//         htmlLines.push(""); // Add empty line after heading
-//       }
-//     }
-//     else if (trimmedLine.startsWith("## ")) {
-//       if (inOrderedList) {
-//         htmlLines.push("</ol>");
-//         htmlLines.push(""); // Add empty line after closing ordered list
-//         inOrderedList = false;
-//       }
-//       if (inUnorderedList) {
-//         htmlLines.push("</ul>");
-//         htmlLines.push(""); // Add empty line after closing unordered list
-//         inUnorderedList = false;
-//       }
-//       if (prevLine !== "") {
-//         htmlLines.push(""); // Add empty line before heading
-//       }
-//       htmlLines.push(`<h2>${trimmedLine.slice(3)}</h2>`);
-//       if (nextLine !== "") {
-//         htmlLines.push(""); // Add empty line after heading
-//       }
-//     }
-//     else if (trimmedLine.startsWith("### ")) {
-//       if (inOrderedList) {
-//         htmlLines.push("</ol>");
-//         htmlLines.push(""); // Add empty line after closing ordered list
-//         inOrderedList = false;
-//       }
-//       if (inUnorderedList) {
-//         htmlLines.push("</ul>");
-//         htmlLines.push(""); // Add empty line after closing unordered list
-//         inUnorderedList = false;
-//       }
-//       if (prevLine !== "") {
-//         htmlLines.push(""); // Add empty line before heading
-//       }
-//       htmlLines.push(`<h3>${trimmedLine.slice(4)}</h3>`);
-//       if (nextLine !== "") {
-//         htmlLines.push(""); // Add empty line after heading
-//       }
-//     }
-//     // Detect headings based on heuristic
-//     else if (/^[A-ZÁÉÍÓÖŐÚÜŰ]/.test(trimmedLine) && trimmedLine.split(" ").length <= 6 && !trimmedLine.endsWith(".")) {
-//       if (inOrderedList) {
-//         htmlLines.push("</ol>");
-//         htmlLines.push(""); // Add empty line after closing ordered list
-//         inOrderedList = false;
-//       }
-//       if (inUnorderedList) {
-//         htmlLines.push("</ul>");
-//         htmlLines.push(""); // Add empty line after closing unordered list
-//         inUnorderedList = false;
-//       }
-//       if (prevLine !== "") {
-//         htmlLines.push(""); // Add empty line before heading
-//       }
-//       htmlLines.push(`<h2>${trimmedLine}</h2>`);
-//       if (nextLine !== "") {
-//         htmlLines.push(""); // Add empty line after heading
-//       }
-//     }
-//     // Treat as paragraph
-//     else {
-//       if (inOrderedList) {
-//         htmlLines.push("</ol>");
-//         htmlLines.push(""); // Add empty line after closing ordered list
-//         inOrderedList = false;
-//       }
-//       if (inUnorderedList) {
-//         htmlLines.push("</ul>");
-//         htmlLines.push(""); // Add empty line after closing unordered list
-//         inUnorderedList = false;
-//       }
-//       if (trimmedLine !== "") {
-//         htmlLines.push(`<p>${trimmedLine}</p>`);
-//       }
-//     }
-//   });
-
-//   // Close any remaining open lists
-//   if (inOrderedList) {
-//     htmlLines.push("</ol>");
-//     htmlLines.push(""); // Add empty line after closing ordered list
-//   }
-//   if (inUnorderedList) {
-//     htmlLines.push("</ul>");
-//     htmlLines.push(""); // Add empty line after closing unordered list
-//   }
-
-//   let htmlText = htmlLines.join("\n");
-//   document.getElementById("outputHTML").textContent = htmlText;
-// }
-
-// OG function wrapper
-
-
 function convertToHTML() {
   let text = document.getElementById("inputText").value;
   let lines = text.split("\n");
@@ -352,21 +192,21 @@ function convertToHTML() {
               isListItem = true;
           }
       } else {
-         // Handle unordered list items
+          // Handle unordered list items
           if (normalizedLine.startsWith("•")) {
-            if (!inUnorderedList) {
-                if (inOrderedList) {
-                    htmlLines.push("</ol>");
-                    inOrderedList = false;
-                }
-                htmlLines.push("<ul>");
-                inUnorderedList = true;
-            }
-            htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
-            isListItem = true;
+              if (!inUnorderedList) {
+                  if (inOrderedList) {
+                      htmlLines.push("</ol>");
+                      inOrderedList = false;
+                  }
+                  htmlLines.push("<ul>");
+                  inUnorderedList = true;
+              }
+              htmlLines.push(`<li>${normalizedLine.slice(1).trim()}</li>`);
+              isListItem = true;
           }
           // Handle ordered list items
-          else if (/^\d+\.\s/.test(normalizedLine)) {
+          else if (/^(\d+)\.(.*)/.test(normalizedLine)) {
             if (!inOrderedList) {
                 if (inUnorderedList) {
                     htmlLines.push("</ul>");
@@ -375,9 +215,13 @@ function convertToHTML() {
                 htmlLines.push("<ol>");
                 inOrderedList = true;
             }
-            htmlLines.push(`<li>${normalizedLine.replace(/^\d+\.\s/, "").trim()}</li>`);
+            // Extract number and the rest of the text (glued or not)
+            const match = normalizedLine.match(/^(\d+)\.(.*)/);
+            const listItemText = match[2].trim(); // Get the text part after the number and period
+            htmlLines.push(`<li>${listItemText}</li>`);
             isListItem = true;
-          }
+        }
+        
           // Handle headings with varying levels
           else if (/^#+\s/.test(normalizedLine)) {
               const headingLevel = normalizedLine.match(/^#+/)[0].length;
@@ -386,9 +230,13 @@ function convertToHTML() {
           }
           // Treat as paragraph
           else {
-              if (inOrderedList || inUnorderedList) {
-                  htmlLines.push(`</${inOrderedList || inUnorderedList}>`);
+              // Explicitly close any open lists
+              if (inOrderedList) {
+                  htmlLines.push("</ol>\n"); // Add newline after closing the ordered list
                   inOrderedList = false;
+              }
+              if (inUnorderedList) {
+                  htmlLines.push("</ul>\n"); // Add newline after closing the unordered list
                   inUnorderedList = false;
               }
               if (normalizedLine !== "") {
@@ -406,10 +254,10 @@ function convertToHTML() {
 
   // Close any remaining open lists
   if (inOrderedList) {
-      htmlLines.push("</ol>");
+      htmlLines.push("</ol>\n"); // Add newline after closing the ordered list
   }
   if (inUnorderedList) {
-      htmlLines.push("</ul>");
+      htmlLines.push("</ul>\n"); // Add newline after closing the unordered list
   }
 
   // Format HTML output: ensure each element starts on a new line with one blank line between elements
@@ -419,20 +267,21 @@ function convertToHTML() {
       .replace(/\n\s*\n+(?=<p>)/g, '\n') // Ensure no blank line after </p>
       .replace(/^\s*<ul>\s*/m, '<ul>\n') // Remove blank line immediately after <ul> (if any)
       .replace(/^\s*<ol>\s*/m, '<ol>\n') // Remove blank line immediately after <ol> (if any)
-      .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
+      .replace(/(<li>)/g, '     $1') // Add 5 spaces before each <li> tag
       .replace(/^\s*(<ul>)/m, '\n$1') // Add blank line before <ul>
-      .replace(/(<\/ul>)\s*/g, '$1\n') // Add blank line after </ul>
+      .replace(/(<\/ul>)\s*/g, '$1\n\n') // Add blank line after </ul>
       .replace(/^\s*(<ol>)/m, '\n$1') // Add blank line before <ol>
-      .replace(/(<\/ol>)\s*/g, '$1\n'); // Add blank line after </ol>
+      .replace(/(<\/ol>)\s*/g, '$1\n\n'); // Add blank line after </ol>
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;
 }
 
+
 // ******************************* Copy to clipboard ******************************* // 
 
 function copyToClipboard() {
-  let outputHTML = document.getElementById("outputHTML");
+  let outputHTML = document.getElementById("outputHTML", "outputCode");
   let range = document.createRange();
   range.selectNode(outputHTML);
   window.getSelection().removeAllRanges();
@@ -476,7 +325,6 @@ function copyToClipboard() {
 
 function clearText() {
   document.getElementById("inputText").value = "";
-  document.getElementById("outputHTML").textContent = "";
 }
 
 // HTML CSS comm removing //
@@ -507,7 +355,6 @@ function removeComments() {
   // Display the cleaned code in the output area
   document.getElementById('outputCode').textContent = cleanedCode;
 }
-
 // Function to copy the cleaned code to clipboard
 function copyCleanedCode() {
   const outputCode = document.getElementById('outputCode').textContent; // Get cleaned code
@@ -525,6 +372,7 @@ function copyCleanedCode() {
     copyNotification.style.borderRadius = "5px";
     copyNotification.style.opacity = "0";
     copyNotification.style.transition = "opacity 0.5s ease";
+    copyNotification.style.zIndex = "1000"; // Ensure it appears above other content
 
     document.body.appendChild(copyNotification);
 
@@ -535,11 +383,42 @@ function copyCleanedCode() {
         copyNotification.style.opacity = "0";
         setTimeout(() => {
           document.body.removeChild(copyNotification);
-        }, 500);
-      }, 2000);
-    }, 0);
+        }, 500); // Delay for fade-out to complete
+      }, 2000); // Duration for the notification to be visible
+    }, 0); // Initial delay to ensure animation starts after append
 
   }, function() {
     alert("Failed to copy code.");
   });
+}
+
+// Removing duplicates and Query strings
+
+// Function to remove duplicate lines and lines containing "?"
+function cleanCode() {
+  let text = document.getElementById("inputCode").value;
+  let lines = text.split("\n");
+
+  // Create a Set to track unique lines and filter out lines containing "?"
+  let uniqueLines = new Set();
+
+  lines.forEach(line => {
+      let trimmedLine = line.trim();
+      // Add line to set only if it does not contain "?"
+      if (!trimmedLine.includes('?')) {
+          uniqueLines.add(trimmedLine);
+      }
+  });
+
+  // Convert Set back to an array and join to form the cleaned text
+  let cleanedText = Array.from(uniqueLines).join("\n");
+
+  // Display the resulting cleaned text
+  document.getElementById("outputCode").textContent = cleanedText;
+}
+
+// Function to clear both input and output areas
+function clearInputAndOutput() {
+  document.getElementById("inputCode").value = '';
+  document.getElementById("outputCode").textContent = 'Your output will be displayed here !';
 }
