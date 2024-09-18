@@ -404,6 +404,12 @@ function cleanCode() {
 
   lines.forEach(line => {
       let trimmedLine = line.trim();
+
+        // Check if the line contains '%' and add the special comment
+        if (trimmedLine.includes('%')) {
+          trimmedLine += ' // Special Symbol';
+      }
+
       // Add line to set only if it does not contain "?"
       if (!trimmedLine.includes('?')) {
           uniqueLines.add(trimmedLine);
