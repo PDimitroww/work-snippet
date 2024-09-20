@@ -399,29 +399,81 @@ function cleanCode() {
   let text = document.getElementById("inputCode").value;
   let lines = text.split("\n");
 
-  // Create a Set to track unique lines and filter out lines containing "?"
+  // Normalize lines by trimming whitespace and ensuring consistent line breaks
+  lines = lines.map(line => line.trim().replace(/\r\n|\r|\n/g, '\n'));
+
+  // Filter out empty lines
+  lines = lines.filter(line => line !== '');
+
   let uniqueLines = new Set();
+  let queryCount = 0;
+  let duplicateCount = 0;
+  let specialSymbolCount = 0;
+
+  // Use an object to track occurrences of each line, including lines with special symbols
+  let lineOccurrences = {};
+  let countedSpecialSymbol = new Set(); // Track unique lines with '%' already counted
 
   lines.forEach(line => {
-      let trimmedLine = line.trim();
+    let trimmedLine = line.trim();
 
-        // Check if the line contains '%' and add the special comment
-        if (trimmedLine.includes('%')) {
-          trimmedLine += ' // Special Symbol';
-      }
+    // Check if the line contains "?"
+    if (trimmedLine.includes('?')) {
+      queryCount++;
+      return; // Skip adding this line
+    }
 
-      // Add line to set only if it does not contain "?"
-      if (!trimmedLine.includes('?')) {
-          uniqueLines.add(trimmedLine);
+    // Decode URL-encoded characters like %20 and enclose the decoded line in quotes
+    if (/%[0-9A-Fa-f]{2}/.test(trimmedLine)) {
+      try {
+        let decodedLine = decodeURIComponent(trimmedLine);
+        trimmedLine = `"${decodedLine}"`; // Enclose the decoded line in double quotes
+
+        // If this line contains %, add a special comment
+        if (!countedSpecialSymbol.has(trimmedLine)) {
+          specialSymbolCount++;
+          countedSpecialSymbol.add(trimmedLine);
+        }
+        trimmedLine += '    // Special Symbol';
+      } catch (e) {
+        console.warn(`Failed to decode line: ${trimmedLine}`);
       }
+    }
+
+    // Track the occurrence of each line, including lines with special symbols
+    if (lineOccurrences[trimmedLine]) {
+      duplicateCount++;
+    } else {
+      lineOccurrences[trimmedLine] = 1;
+    }
   });
+
+  // Now count duplicates correctly and populate the unique lines set
+  for (let line in lineOccurrences) {
+    let occurrences = lineOccurrences[line];
+    if (occurrences > 1) {
+      duplicateCount += occurrences - 1; // Count only additional occurrences as duplicates
+    }
+    uniqueLines.add(line); // Add the line to the uniqueLines set once, regardless of count
+  }
 
   // Convert Set back to an array and join to form the cleaned text
   let cleanedText = Array.from(uniqueLines).join("\n");
 
+  // Create a summary
+  let summaryText = `
+    <p class="color" style="margin-top: -45px;">Queries removed ( ? ) :  <span>${queryCount}</span>.</p>
+    <p class="color">Duplicates removed :  <span>${duplicateCount}</span>.</p>
+    <p class="color">Lines with ( % ) :  <span>${specialSymbolCount}</span>.</p>
+  `;
+
+  // Combine the summary and cleaned text with an <hr> line in between
+  let finalOutput = summaryText + `\n<hr class="warning">\n` + cleanedText;
+
   // Display the resulting cleaned text
-  document.getElementById("outputCode").textContent = cleanedText;
+  document.getElementById("outputCode").innerHTML = finalOutput;
 }
+
 
 // Function to clear both input and output areas
 function clearInputAndOutput() {

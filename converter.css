@@ -5,7 +5,7 @@
     max-width: 1300px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #f1f1f1;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
@@ -34,8 +34,8 @@
     box-sizing: border-box;
     resize: none;
     /* background: #0f1021; */
-    color: #fff;
-    background: linear-gradient(#0f1021f0, #0f1021f0), url(/img/space.webp);
+    color: #f1f1f1;
+    background: linear-gradient(#0f1021a8, #0f1021a6), url(/img/space.webp);
     background-size: cover;
     margin-top: 20px;
     overflow-y: scroll;
@@ -47,8 +47,9 @@
     width: 20%;
     padding: 10px;
     font-size: 18px;
-    color: #fff;
-    background: linear-gradient(90deg, #12b5de 12%, #7130c3 40%, #ff3bd4 80%);
+    color: #f1f1f1;
+    /* background: linear-gradient(90deg, #12b5de 12%, #7130c3 40%, #ff3bd4 80%); */
+    background: linear-gradient(90deg, #ffc400 17%, #7130c3 50%, #ff3bd4 99%);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -60,7 +61,8 @@
   }
 
   .convert-button:hover {
-    background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%);
+    /* background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%); */
+    background: linear-gradient(90deg, #ff3bd4 2%, #7130c3 49%, #ffc400 87%);
   }
   
 
@@ -77,16 +79,16 @@
   
   .output-html {
     width: 100%;
-    color: #fff;
+    color: #f1f1f1;
     padding: 10px;
     border: 3px solid #6c37c5;
     border-radius: 9px;
-    white-space: pre-wrap; /* Prevent text overflow */
-    word-wrap: break-word; /* Prevent text overflow */
+    white-space: pre-wrap;
+    word-wrap: break-word;
     box-sizing: border-box;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: linear-gradient(#0f1021f0, #0f1021f0), url(/img/space.webp);
+    background: linear-gradient(#0f1021a8, #0f1021a6), url(/img/space.webp);
     text-align: start;
     height: 500px;
     max-height: 500px;
@@ -97,7 +99,7 @@
 
   .instructions li {
     justify-content: flex-start;
-    color: #fff;
+    color: #f1f1f1;
     background: linear-gradient(90deg, #12b5de 12%, #7130c3 40%, #ff3bd4 80%);
   }
 
@@ -118,7 +120,7 @@
   }
 
   .container p {
-    color:#fff;
+    color:#f1f1f1;
   }
 
   .grid {
@@ -174,37 +176,28 @@
   display: flex;
 }
 
-
-.output-html h1 {
-  color: red;
-}
-
-.output-html h2 {
-  color: blue;
-}
-
-.output-html h3 {
-  color: green;
-}
-
-.output-html ul {
-  color: orange;
-}
-
-.output-html ol {
-  color: purple;
-}
-
-.output-html p {
-  color: black;
-}
-
 .bg-2 {
-
-  background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%);
+  /* background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%); */
+    background: linear-gradient(90deg, #ff3bd4 2%, #7130c3 49%, #ffc400 87%);
 }
 
 .bg-2:hover{
-  background: linear-gradient(90deg, #12b5de 12%, #7130c3 40%, #ff3bd4 80%);
+  background: linear-gradient(90deg, #ffc400 17%, #7130c3 50%, #ff3bd4 99%);
 }
 
+.warning {
+  border: none;
+  /* border-top: 2px solid #bd95ff;  */
+  border-top: 2px solid #ffc400; 
+  margin: 10px 0;
+}
+
+.color {
+  color: #ffc400 !important;
+  /* color: #bd95ff !important; */
+  margin-bottom: -47px !important;
+}
+
+.color span {
+  color:#f1f1f1 !important;
+}

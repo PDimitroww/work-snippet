@@ -29,7 +29,7 @@ header {
 }
 
 header .logo {
-  color: #fff;
+  color: #f1f1f1;
   font-weight: 700;
   text-decoration: none;
   font-size: 2em;
@@ -51,7 +51,7 @@ header ul li {
 header ul li a {
   text-decoration: none;
   padding: 4px 10px;
-  color: #fff;
+  color: #f1f1f1;
   border-radius: 10px;
 }
 
@@ -65,7 +65,7 @@ header ul li a .active {
   text-decoration: none;
   padding: 8px 30px;
   border-radius: 40px;
-  background: #fff;
+  background: #f1f1f1;
   color: #2b1055;
   font-size: 1.5em;
   display: inline-block;
@@ -82,12 +82,12 @@ header ul li a .active {
 .sec h2 {
   font-size: 3.5em;
   margin-bottom: 10px;
-  color: #fff;
+  color: #f1f1f1;
 }
 
 .sec p {
   font-size: 1em;
-  color: #fff;
+  color: #f1f1f1;
 }
 
 #stars,
@@ -386,7 +386,7 @@ button.delete:hover {
 li.completed {
   text-decoration: line-through;
   background-color: #070710;
-  color:#fff;
+  color:#f1f1f1;
 }
 
 li.completed button.delete {
@@ -513,7 +513,7 @@ input[type="checkbox"] {
 }
 
 .bg p {
-  color:#fff;
+  color:#f1f1f1;
   margin-bottom: 10px;
 }
 
@@ -539,7 +539,7 @@ footer {
 }
 
 footer p {
-  color:#fff;
+  color:#f1f1f1;
 }
 
 .beta {

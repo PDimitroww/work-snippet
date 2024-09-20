@@ -41,7 +41,13 @@
           <textarea
             id="inputCode"
             class="input-text"
-            placeholder="Enter your Code here..."
+            placeholder="Example Input:
+
+//  Random comments
+let example = 20;
+
+//  More comments
+            "
           ></textarea>
           <div class="flex-row">
             <button class="convert-button" onclick="removeComments()">
@@ -55,7 +61,10 @@
 
         <div class="grid-2-text">
           <h2 class="subtitle">Cleaned Code</h2>
-          <pre id="outputCode" class="output-html">Your output will be displayed here !</pre>
+          <pre id="outputCode" class="output-html">Example Output:
+
+let example = 20;
+                        "</pre>
 
           <button class="convert-button" onclick="copyCleanedCode()">
             Copy

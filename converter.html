@@ -40,7 +40,13 @@
         <textarea
           id="inputText"
           class="input-text"
-          placeholder="Enter your Plain text here..."
+          placeholder="Example Input:
+          
+<h1>Random Heading</h1>
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, atque blanditiis.
+
+<h2>Random h2 heading</h2>
+          "
         ></textarea>
         <div class="flex-row">
           <button class="convert-button" onclick="convertToHTML()">
@@ -52,7 +58,13 @@
      
       <div class="grid-2-text">
         <h2 class="subtitle">Generated HTML</h2>
-        <pre id="outputHTML" class="output-html">Your output will be displayed here !</pre>
+        <pre id="outputHTML" class="output-html">Example Output:
+          
+< h1>Random Heading< /h1>
+
+< p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, atque blanditiis.< /p>
+
+< h2>Random h2 heading< /h2></pre>
 
         <button class="convert-button"  onclick="copyToClipboard()">
           Copy
