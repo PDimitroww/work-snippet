@@ -490,7 +490,7 @@ function cleanCode() {
 
   // Display output and summary
   const summaryText = `
-    <p class="color">Queries removed ( ? ) : <span>${queryCount}</span>.</p>
+    <p class="color" style="margin-top: -45px;">Queries removed ( ? ) : <span>${queryCount}</span>.</p>
     <p class="color">Duplicates removed : <span>${duplicateCount}</span>.</p>
     <p class="color">Lines with ( % ) : <span>${specialSymbolCount}</span>.</p>
     <p class="color">Subdomains removed( dups included ): <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
