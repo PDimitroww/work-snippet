@@ -394,7 +394,6 @@ function copyCleanedCode() {
 
 // Removing duplicates and Query strings
 
-// Function to remove duplicate lines and lines containing "?"
 function cleanCode() {
   let text = document.getElementById("inputCode").value;
   let lines = text.split("\n");
@@ -409,21 +408,46 @@ function cleanCode() {
   let queryCount = 0;
   let duplicateCount = 0;
   let specialSymbolCount = 0;
+  let subdomainCount = 0;
 
-  // Use an object to track occurrences of each line, including lines with special symbols
   let lineOccurrences = {};
   let countedSpecialSymbol = new Set(); // Track unique lines with '%' already counted
+  let subdomains = new Set(); // Track subdomains that were removed
+
+  // Set of primary domains (you can add other primary domains as needed)
+  const primaryDomains = new Set(['alo.bg', 'alo.com']); // Add your primary domains here
+
+  // Regular expression to detect URLs and capture the slug part
+  const urlRegex = /^(https?:\/\/)?(www\.)?([^\/]+)(\/.*)?/i;
 
   lines.forEach(line => {
     let trimmedLine = line.trim();
 
-    // Check if the line contains "?"
+    // Check if the line contains a query string (?)
     if (trimmedLine.includes('?')) {
       queryCount++;
-      return; // Skip adding this line
+      return; // Skip lines containing queries
     }
 
-    // Decode URL-encoded characters like %20 and enclose the decoded line in quotes
+    // Check for URLs and capture the slug
+    const match = trimmedLine.match(urlRegex);
+    if (match) {
+      const domain = match[3];  // The domain (e.g., "alo.com" or "twitch.tv")
+      const slug = match[4] || '/';  // The slug part (or '/' if not present)
+
+      // If the domain is in the primary domains set, use the slug
+      if (!primaryDomains.has(domain)) {
+        // Count different domains as subdomains
+        subdomainCount++;
+        subdomains.add(domain); // Track removed subdomains
+        return;  // Skip lines with subdomains
+      }
+
+      // Use the slug as the new trimmed line
+      trimmedLine = slug;
+    }
+
+    // Handle URL-encoded characters and special symbols (%)
     if (/%[0-9A-Fa-f]{2}/.test(trimmedLine)) {
       try {
         let decodedLine = decodeURIComponent(trimmedLine);
@@ -440,12 +464,15 @@ function cleanCode() {
       }
     }
 
-    // Track the occurrence of each line, including lines with special symbols
+    // Track line occurrences to count duplicates
     if (lineOccurrences[trimmedLine]) {
       duplicateCount++;
     } else {
       lineOccurrences[trimmedLine] = 1;
     }
+
+    // Add the processed line to the uniqueLines set
+    uniqueLines.add(trimmedLine);
   });
 
   // Now count duplicates correctly and populate the unique lines set
@@ -454,24 +481,23 @@ function cleanCode() {
     if (occurrences > 1) {
       duplicateCount += occurrences - 1; // Count only additional occurrences as duplicates
     }
-    uniqueLines.add(line); // Add the line to the uniqueLines set once, regardless of count
   }
 
-  // Convert Set back to an array and join to form the cleaned text
-  let cleanedText = Array.from(uniqueLines).join("\n");
+  // Prepare the final cleaned text
+  let cleanedText = Array.from(uniqueLines)
+    .filter(line => line !== '')
+    .join("\n");
 
-  // Create a summary
-  let summaryText = `
-    <p class="color" style="margin-top: -45px;">Queries removed ( ? ) :  <span>${queryCount}</span>.</p>
-    <p class="color">Duplicates removed :  <span>${duplicateCount}</span>.</p>
-    <p class="color">Lines with ( % ) :  <span>${specialSymbolCount}</span>.</p>
+  // Display output and summary
+  const summaryText = `
+    <p class="color">Queries removed ( ? ) : <span>${queryCount}</span>.</p>
+    <p class="color">Duplicates removed : <span>${duplicateCount}</span>.</p>
+    <p class="color">Lines with ( % ) : <span>${specialSymbolCount}</span>.</p>
+    <p class="color">Subdomains removed( dups included ): <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
   `;
 
-  // Combine the summary and cleaned text with an <hr> line in between
-  let finalOutput = summaryText + `\n<hr class="warning">\n` + cleanedText;
-
-  // Display the resulting cleaned text
-  document.getElementById("outputCode").innerHTML = finalOutput;
+  // Combine summary and cleaned text
+  document.getElementById("outputCode").innerHTML = summaryText + `<hr class="warning">${cleanedText}`;
 }
 
 
