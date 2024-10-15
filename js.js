@@ -413,12 +413,25 @@ function cleanCode() {
   let lineOccurrences = {};
   let countedSpecialSymbol = new Set(); // Track unique lines with '%' already counted
   let subdomains = new Set(); // Track subdomains that were removed
-
-  // Set of primary domains (you can add other primary domains as needed)
-  const primaryDomains = new Set(['alo.bg', 'alo.com']); // Add your primary domains here
+  let domainCount = {}; // Track the occurrences of each domain
 
   // Regular expression to detect URLs and capture the slug part
   const urlRegex = /^(https?:\/\/)?(www\.)?([^\/]+)(\/.*)?/i;
+
+  // First pass: Count domains
+  lines.forEach(line => {
+    const match = line.match(urlRegex);
+    if (match) {
+      const domain = match[3];
+      if (!domainCount[domain]) {
+        domainCount[domain] = 0;
+      }
+      domainCount[domain]++;
+    }
+  });
+
+  // Find the most frequent domain (primary domain)
+  const primaryDomain = Object.keys(domainCount).reduce((a, b) => domainCount[a] > domainCount[b] ? a : b);
 
   lines.forEach(line => {
     let trimmedLine = line.trim();
@@ -435,8 +448,8 @@ function cleanCode() {
       const domain = match[3];  // The domain (e.g., "alo.com" or "twitch.tv")
       const slug = match[4] || '/';  // The slug part (or '/' if not present)
 
-      // If the domain is in the primary domains set, use the slug
-      if (!primaryDomains.has(domain)) {
+      // If the domain is the primary domain, use the slug
+      if (domain !== primaryDomain) {
         // Count different domains as subdomains
         subdomainCount++;
         subdomains.add(domain); // Track removed subdomains
@@ -493,12 +506,14 @@ function cleanCode() {
     <p class="color" style="margin-top: -45px;">Queries removed ( ? ) : <span>${queryCount}</span>.</p>
     <p class="color">Duplicates removed : <span>${duplicateCount}</span>.</p>
     <p class="color">Lines with ( % ) : <span>${specialSymbolCount}</span>.</p>
-    <p class="color">Subdomains removed( dups included ): <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
+    <p class="color">Primary Domain : <span>${primaryDomain}</span></p>
+    <p class="color">Subdomains removed (dups included) : <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
   `;
 
   // Combine summary and cleaned text
   document.getElementById("outputCode").innerHTML = summaryText + `<hr class="warning">${cleanedText}`;
 }
+
 
 
 // Function to clear both input and output areas
