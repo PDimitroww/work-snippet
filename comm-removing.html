@@ -10,13 +10,13 @@
   </head>
   <body>
     <header>
-      <a href="/index.html" class="logo">PDimitrow</a>
+      <a href="/index.html" class="logo">PDimitrow <span class="beta small">v2.0</span></a>
 
       <ul>
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/check.html">Check list</a></li>
-        <li><a href="/converter.html">Text to Html</a></li>
-        <li><a href="/comm-removing.html">Comments removal</a></li>
+        <li><a href="/" class="active">Snippets</a></li>
+        <li><a href="/check.html">CheckList</a></li>
+        <li><a href="/converter.html">Text to HTML</a></li>
+        <li><a href="/comm-removing.html">Comments</a></li>
         <li><a href="/htaccess.html">Htasccess</a></li>
       </ul>
     </header>
@@ -37,7 +37,7 @@
 
       <div class="row">
         <div class="grid-1-text">
-          <h2 class="subtitle">HTML / CSS / JS Code</h2>
+          <h2 class="subtitle">Your Code</h2>
           <textarea
             id="inputCode"
             class="input-text"
@@ -61,10 +61,7 @@ let example = 20;
 
         <div class="grid-2-text">
           <h2 class="subtitle">Cleaned Code</h2>
-          <pre id="outputCode" class="output-html">Example Output:
-
-let example = 20;
-                        "</pre>
+          <pre id="outputCode" class="output-html comms-rem"></pre>
 
           <button class="convert-button" onclick="copyCleanedCode()">
             Copy

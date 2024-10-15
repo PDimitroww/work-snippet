@@ -10,13 +10,13 @@
   </head>
   <body>
     <header>
-      <a href="/index.html" class="logo">PDimitrow</a>
+      <a href="/index.html" class="logo">PDimitrow <span class="beta small">v2.0</span></a>
 
       <ul>
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/check.html">Check list</a></li>
-        <li><a href="/converter.html">Text to Html</a></li>
-        <li><a href="/comm-removing.html">Comments removal</a></li>
+        <li><a href="/" class="active">Snippets</a></li>
+        <li><a href="/check.html">CheckList</a></li>
+        <li><a href="/converter.html">Text to HTML</a></li>
+        <li><a href="/comm-removing.html">Comments</a></li>
         <li><a href="/htaccess.html">Htasccess</a></li>
       </ul>
     </header>
@@ -35,6 +35,8 @@
 
     <div class="container">
 
+      <p class="beta">Now working with full Domains & Subdomains.</p>
+
         <div class="row">
             <div class="grid-1-text">
                 <h2 class="subtitle">Redirects here</h2>
@@ -43,15 +45,15 @@
                     class="input-text"
                     placeholder="Example Input:
 
-  https://alo.com/wp-content/zh-1
-  https://www.alo.com/store
+  https://twitch.com/wp-content/zh-1
+  https://www.twitch.com/store
                     "
                 ></textarea>
                 <div class="flex-row">
                     <button class="convert-button" onclick="cleanCode()">
                         Clean Text
                     </button>
-                    <button class="convert-button bg-2" onclick="clearInputAndOutput()">
+                    <button class="convert-button bg-2" onclick="clearFunc()">
                         Clear Text
                     </button>
                 </div>
@@ -59,11 +61,7 @@
         
             <div class="grid-2-text">
                 <h2 class="subtitle">Cleaned Redirects</h2>
-                <pre id="outputCode" class="output-html">Example Output:
-
-/wp-content/zh-1
-/store
-                </pre>
+                <pre id="outputCode" class="output-html htaccess"></pre>
         
                 <button class="convert-button" onclick="copyCleanedCode()">
                     Copy

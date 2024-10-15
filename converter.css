@@ -201,3 +201,36 @@
 .color span {
   color:#f1f1f1 !important;
 }
+
+.htaccess,
+.comms-rem,
+.text-to-html {
+  position: relative;
+}
+
+.comms-rem::after,
+.htaccess::after,
+.text-to-html::after {
+  white-space: pre-line;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  line-height: 2;
+  color:#757575;
+}
+
+.htaccess::after {
+  content: "Example Output: \A /wp-content/zh-1 \A /store";
+}
+
+.comms-rem::after {
+  content: "Example Output: \A let example = 20;";
+}
+
+.text-to-html::after {
+  content: "Example Output: \A <h1>Random Heading</h1> \A <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, atque blanditiis.</p> \A <h2>Random h2 heading</h2>";
+}
+
+.hide-after::after {
+  content: ""; /* Removes the content of ::after */
+}

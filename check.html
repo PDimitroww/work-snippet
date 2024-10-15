@@ -9,13 +9,13 @@
   </head>
   <body>
     <header>
-        <a href="/index.html" class="logo">PDimitrow</a>
+      <a href="/index.html" class="logo">PDimitrow <span class="beta small">v2.0</span></a>
 
       <ul>
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/check.html">Check list</a></li>
-        <li><a href="/converter.html">Text to Html</a></li>
-        <li><a href="/comm-removing.html">Comments removal</a></li>
+        <li><a href="/" class="active">Snippets</a></li>
+        <li><a href="/check.html">CheckList</a></li>
+        <li><a href="/converter.html">Text to HTML</a></li>
+        <li><a href="/comm-removing.html">Comments</a></li>
         <li><a href="/htaccess.html">Htasccess</a></li>
       </ul>
     </header>
@@ -32,8 +32,9 @@
         <img alt="" loading="lazy" width="1900" height="120" decoding="async" data-nimg="1" class="w-100" src="/img/separator.svg">
       </div>
 
-    <section id="start" class="sec">
-        <div class="section-heading">
+      <div class="container-2"><h2 class="subtitle-2">Take short notes</p></div>
+    <section id="start" class="sec-2">
+         <!-- <div class="section-heading">
             <p><span>01</span> To Do List</p>
         </div>
         <div class="grid-2">
@@ -51,30 +52,23 @@
                 <p>Document any tasks or reminders to ensure nothing is overlooked.</p>
                 <p>Your progress will be saved, even if you accidentally close the window.</p>
             </div>
-        </div>
+        </div> -->
 
-        <div class="section-heading left-side">
-            <p>Check List <span>02</span></p>
+        <div class="code-box-2">
+          <div class="checklist-container">
+              <div class="checklist-input-container">
+                  <input type="text" id="checklistTaskInput" placeholder="e.g. Check Redirects...">
+                  <button onclick="addChecklistTask()">Add</button>
+              </div>
+              <ul id="checklistTaskList">
+              </ul>
+          </div>
         </div>
-        <div class="grid-2">
-            <div class="code-box text-box">
-                <div class="box-heading fyi">FYI</div>
-                <p>Feel free to add any tasks you think you might forget over time.</p>
-                <p>Your progress will be saved, even if you accidentally close the window.</p>
-            </div>
-            <div class="code-box">
-                <div class="checklist-container">
-                    <div class="checklist-input-container">
-                        <input type="text" id="checklistTaskInput" placeholder="Add a new item...">
-                        <button onclick="addChecklistTask()">Add</button>
-                    </div>
-                    <ul id="checklistTaskList">
-                        <!-- Predefined tasks can be placed here if needed -->
-                    </ul>
-                </div>
-            </div>
+        <div class="container-2">
+            <p class="text-white">*We apologise for the inconvenience in case your notes are missing!</p>
         </div>
     </section>
+
 
     <div class="chatenai-separator">
         <img alt="" loading="lazy" width="1900" height="120" decoding="async" data-nimg="1" class="w-100" style="color:transparent" src="/img/separator-bottom.svg">

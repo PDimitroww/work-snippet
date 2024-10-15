@@ -79,6 +79,21 @@ header ul li a .active {
   background: #070710;
 }
 
+.sec-2 {
+  padding: 37px 100px 100px 100px;
+}
+
+.subtitle-2 {
+  font-size: 30px;
+  margin-top: 30px;
+  background: linear-gradient(90deg, #5a51ca 12%, #7130c3 40%, #ff3bd4 80%);
+  text-transform: capitalize;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 325px;
+}
+
 .sec h2 {
   font-size: 3.5em;
   margin-bottom: 10px;
@@ -114,8 +129,6 @@ header ul li a .active {
   -webkit-text-fill-color: transparent;
 }
 
-
-
 .section-heading p {
   font-size: 3rem;
   font-weight: 700;
@@ -131,13 +144,20 @@ header ul li a .active {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.code-box {
-  border: 2px solid #444647;
-  background-color: #1e1f26;
+.code-box,
+.code-box-2  {
+  border: 2px solid #2b045c;
+  background-color: #070710;
   margin: 0px 10px;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 0 53px 0 #280736;
+}
+
+.code-box-2 {
+  width: 75%;
+  margin: 0 auto;
 }
 
 .box-2 {
@@ -330,6 +350,11 @@ code span.comment {
   text-align: center;
 }
 
+.container-2 {
+  width: 67%;
+  margin:0 auto !important;
+}
+
 h1 {
   margin-bottom: 20px;
 }
@@ -347,16 +372,16 @@ input[type="text"] {
 }
 
 button {
-  padding: 10px 15px;
-  background: #28a745;
+  padding: 10px 70px;
+  background: #5558cc;
   border: none;
-  color: white;
+  color: #fff;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #218838;
+  background: #3a3d9b;
 }
 
 ul {
@@ -372,6 +397,8 @@ li {
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
 }
 
 button.delete {
@@ -395,10 +422,14 @@ li.completed button.delete {
 
 .checklist-container {
   background: white;
-  padding: 20px;
+  padding: 20px 20px 1px 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   text-align: center;
+}
+
+.checklist-container li:last-child {
+  margin-bottom: 20px;
 }
 
 .checklist-container h1 {
@@ -417,35 +448,6 @@ li.completed button.delete {
   border-radius: 5px;
 }
 
-.checklist-input-container button {
-  padding: 10px 15px;
-  background: #28a745;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.checklist-input-container button:hover {
-  background: #218838;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  background: #eee;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 li.completed a {
   text-decoration: line-through;
 }
@@ -456,6 +458,7 @@ header li {
 
 input[type="checkbox"] {
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .text-box {
@@ -550,3 +553,13 @@ footer p {
   color: #ff1f1f;
 }
 
+.small {
+  text-transform: lowercase !important;
+}
+
+.text-white {
+  color:#c5c5c5;
+  margin-left: -68px;
+  margin-top: 20px;
+  font-size: 12px;
+}

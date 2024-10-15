@@ -1,69 +1,132 @@
+// ******************************** Notifications ********************************** //
+
+function showNotificationError(message) {
+  // Create a temporary element for the notification
+  const notification = document.createElement("div");
+  notification.innerText = message;
+  notification.setAttribute("role", "alert"); // Improve accessibility
+  notification.style.position = "fixed";
+  notification.style.top = "20px";
+  notification.style.left = "20px";
+  notification.style.backgroundColor = "#dc3545";
+  notification.style.color = "white";
+  notification.style.padding = "10px 20px";
+  notification.style.borderRadius = "5px";
+  notification.style.opacity = "0";
+  notification.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+  notification.style.transform = "translateY(20px)";
+
+  document.body.appendChild(notification);
+
+  // Trigger the animation
+  setTimeout(() => {
+      notification.style.opacity = "1";
+      notification.style.transform = "translateY(0)";
+
+      setTimeout(() => {
+          notification.style.opacity = "0";
+          notification.style.transform = "translateY(20px)";
+          setTimeout(() => {
+              document.body.removeChild(notification);
+          }, 500);
+      }, 2000);
+  }, 0);
+}
+
+
+function showNotificationSuccess(message) {
+  let copyNotification = document.createElement("div");
+    copyNotification.innerText = message;
+    copyNotification.style.position = "fixed";
+    copyNotification.style.top = "20px";
+    copyNotification.style.left = "20px";
+    copyNotification.style.backgroundColor = "#7130c3";
+    copyNotification.style.color = "white";
+    copyNotification.style.padding = "10px";
+    copyNotification.style.borderRadius = "5px";
+    copyNotification.style.opacity = "0";
+    copyNotification.style.transition = "opacity 0.5s ease";
+    copyNotification.style.zIndex = "1000";
+
+    document.body.appendChild(copyNotification);
+
+    setTimeout(() => {
+      copyNotification.style.opacity = "1";
+      setTimeout(() => {
+        copyNotification.style.opacity = "0";
+        setTimeout(() => {
+          document.body.removeChild(copyNotification);
+        }, 500);
+      }, 2000);
+    }, 0); 
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
   loadTasks();
 });
 
-function addTask() {
-  let taskInput = document.getElementById('taskInput');
-  let taskText = taskInput.value.trim();
-  if (taskText === "") {
-      alert("Please enter a task.");
-      return;
-  }
+// function addTask() {
+//   let taskInput = document.getElementById('taskInput');
+//   let taskText = taskInput.value.trim();
+//   if (taskText === "") {
+//       alert("Please enter a task.");
+//       return;
+//   }
 
-  let taskList = document.getElementById('taskList');
-  let li = document.createElement('li');
-  li.textContent = taskText;
+//   let taskList = document.getElementById('taskList');
+//   let li = document.createElement('li');
+//   li.textContent = taskText;
 
-  let deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Delete';
-  deleteButton.className = 'delete';
-  deleteButton.onclick = function() {
-      li.remove();
-      saveTasks();
-  };
+//   let deleteButton = document.createElement('button');
+//   deleteButton.textContent = 'Delete';
+//   deleteButton.className = 'delete';
+//   deleteButton.onclick = function() {
+//       li.remove();
+//       saveTasks();
+//   };
 
-  li.appendChild(deleteButton);
-  taskList.appendChild(li);
+//   li.appendChild(deleteButton);
+//   taskList.appendChild(li);
 
-  taskInput.value = '';
-  saveTasks();
-}
+//   taskInput.value = '';
+//   saveTasks();
+// }
 
-function saveTasks() {
-  let tasks = [];
-  let taskListItems = document.querySelectorAll('#taskList li');
-  taskListItems.forEach(item => {
-      tasks.push(item.textContent.replace('Delete', '').trim());
-  });
-  document.cookie = "tasks=" + JSON.stringify(tasks) + "; path=/";
-}
+// function saveTasks() {
+//   let tasks = [];
+//   let taskListItems = document.querySelectorAll('#taskList li');
+//   taskListItems.forEach(item => {
+//       tasks.push(item.textContent.replace('Delete', '').trim());
+//   });
+//   document.cookie = "tasks=" + JSON.stringify(tasks) + "; path=/";
+// }
 
-function loadTasks() {
-  let cookies = document.cookie.split(';');
-  for (let cookie of cookies) {
-      let [name, value] = cookie.split('=');
-      name = name.trim();
-      if (name === 'tasks') {
-          let tasks = JSON.parse(decodeURIComponent(value));
-          let taskList = document.getElementById('taskList');
-          tasks.forEach(task => {
-              let li = document.createElement('li');
-              li.textContent = task;
+// function loadTasks() {
+//   let cookies = document.cookie.split(';');
+//   for (let cookie of cookies) {
+//       let [name, value] = cookie.split('=');
+//       name = name.trim();
+//       if (name === 'tasks') {
+//           let tasks = JSON.parse(decodeURIComponent(value));
+//           let taskList = document.getElementById('taskList');
+//           tasks.forEach(task => {
+//               let li = document.createElement('li');
+//               li.textContent = task;
 
-              let deleteButton = document.createElement('button');
-              deleteButton.textContent = 'Delete';
-              deleteButton.className = 'delete';
-              deleteButton.onclick = function() {
-                  li.remove();
-                  saveTasks();
-              };
+//               let deleteButton = document.createElement('button');
+//               deleteButton.textContent = 'Delete';
+//               deleteButton.className = 'delete';
+//               deleteButton.onclick = function() {
+//                   li.remove();
+//                   saveTasks();
+//               };
 
-              li.appendChild(deleteButton);
-              taskList.appendChild(li);
-          });
-      }
-  }
-}
+//               li.appendChild(deleteButton);
+//               taskList.appendChild(li);
+//           });
+//       }
+//   }
+// }
 
 document.addEventListener('DOMContentLoaded', (event) => {
   loadChecklistTasks();
@@ -78,8 +141,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function addChecklistTask() {
   let taskInput = document.getElementById('checklistTaskInput');
   let taskText = taskInput.value.trim();
-  if (taskText === "") {
-      alert("Please enter an item.");
+
+    if (taskText === "") {
+      showNotificationError("Please enter a task!");
       return;
   }
 
@@ -172,9 +236,18 @@ function deleteTask(button) {
   saveChecklistTasks();
 }
 
+// *********************************** Convert to HTML ******************************************* //
+
 function convertToHTML() {
   let text = document.getElementById("inputText").value;
   let lines = text.split("\n");
+
+  document.querySelector('.text-to-html').classList.add('hide-after');
+
+  if (text === "") {
+    showNotificationError("Please enter a Text!");
+    return;
+}
 
   let htmlLines = [];
   let inOrderedList = false;
@@ -278,10 +351,14 @@ function convertToHTML() {
 }
 
 
-// ******************************* Copy to clipboard ******************************* // 
+// ******************************* Copy to clipboard TEXT TO HTML ******************************* // 
 
 function copyToClipboard() {
   let outputHTML = document.getElementById("outputHTML", "outputCode");
+  if (outputHTML.textContent.trim() === "") {
+    showNotificationError("Nothing to Copy!");
+    return;
+}
   let range = document.createRange();
   range.selectNode(outputHTML);
   window.getSelection().removeAllRanges();
@@ -289,55 +366,83 @@ function copyToClipboard() {
   try {
     document.execCommand("copy");
 
-    // Create a temporary element for the animation
-    let copyNotification = document.createElement("div");
-    copyNotification.innerText = "Copied!";
-    copyNotification.style.position = "fixed";
-    copyNotification.style.bottom = "20px";
-    copyNotification.style.right = "20px";
-    copyNotification.style.backgroundColor = "#7130c3";
-    copyNotification.style.color = "white";
-    copyNotification.style.padding = "10px";
-    copyNotification.style.borderRadius = "5px";
-    copyNotification.style.opacity = "0";
-    copyNotification.style.transition = "opacity 0.5s ease";
-
-    document.body.appendChild(copyNotification);
-
-    // Trigger the animation
-    setTimeout(() => {
-      copyNotification.style.opacity = "1";
-      setTimeout(() => {
-        copyNotification.style.opacity = "0";
-        setTimeout(() => {
-          document.body.removeChild(copyNotification);
-        }, 500);
-      }, 2000);
-    }, 0);
+    showNotificationSuccess('Copied!')
 
   } catch (err) {
     console.error("Failed to copy text", err);
   }
   window.getSelection().removeAllRanges(); // Clear selection
+
 }
 
 // ******************************* Remove Text ******************************* // 
 
 function clearText() {
-  document.getElementById("inputText").value = "";
+  let inputElement = document.getElementById("inputText");
+  let outputElement = document.getElementById("outputHTML");
+
+  document.querySelector('.text-to-html').classList.remove('hide-after');
+
+  // Check if the input value is already empty
+  if (inputElement.value === "") {
+      showNotificationError("Already Clear!");
+      return; 
+  }
+
+  // Clear the input value if it's not empty
+  inputElement.value = "";
+  outputElement.textContent = ""; 
 }
 
-// HTML CSS comm removing //
+// *********************************** Htaccess inputs clear ******************************************* //
 
-// Function to clear both the input and output areas
+function clearFunc() {
+  let inputElement2 = document.getElementById("inputCode");
+  let outputElement2 = document.getElementById("outputCode");
+
+
+  document.querySelector('.htaccess').classList.remove('hide-after');
+
+  if (inputElement2.value === "") {
+    showNotificationError("Already Clear!");
+
+    return;
+}
+  inputElement2.value = ""; 
+  outputElement2.textContent = ""; 
+}
+
+
+// *********************************** Comments inputs clear ******************************************* //
+
 function clearInputAndOutput() {
-  document.getElementById("inputCode").value = ""; // Clear input textarea
-  document.getElementById("outputCode").textContent = ""; // Clear output pre element
+  let inputElement2 = document.getElementById("inputCode");
+  let outputElement2 = document.getElementById("outputCode");
+
+
+  document.querySelector('.comms-rem').classList.remove('hide-after');
+
+  if (inputElement2.value === "") {
+    showNotificationError("Already Clear!");
+
+    return;
+}
+  inputElement2.value = ""; 
+  outputElement2.textContent = ""; 
 }
 
-// Function to remove HTML, CSS, and JavaScript comments
+// *********************************** Comments Removing Func ******************************************* //
+
 function removeComments() {
   const codeInput = document.getElementById('inputCode').value; // Get the input code
+
+  document.querySelector('.comms-rem').classList.add('hide-after');
+
+  if (codeInput === "") {
+    showNotificationError("Nothing to Remove!");
+
+    return;
+}
 
   // Remove HTML comments (<!-- -->)
   let cleanedCode = codeInput.replace(/<!--[\s\S]*?-->/g, '');
@@ -355,47 +460,38 @@ function removeComments() {
   // Display the cleaned code in the output area
   document.getElementById('outputCode').textContent = cleanedCode;
 }
+
 // Function to copy the cleaned code to clipboard
 function copyCleanedCode() {
   const outputCode = document.getElementById('outputCode').textContent; // Get cleaned code
 
+
+  if (outputCode === "") {
+    showNotificationError("Nothing to Copy!");
+
+    return; // Stop execution if the input is already clear
+}
+
   navigator.clipboard.writeText(outputCode).then(function() {
     // Create a temporary element for the "Copied!" notification
-    let copyNotification = document.createElement("div");
-    copyNotification.innerText = "Copied!";
-    copyNotification.style.position = "fixed";
-    copyNotification.style.bottom = "20px";
-    copyNotification.style.right = "20px";
-    copyNotification.style.backgroundColor = "#7130c3";
-    copyNotification.style.color = "white";
-    copyNotification.style.padding = "10px";
-    copyNotification.style.borderRadius = "5px";
-    copyNotification.style.opacity = "0";
-    copyNotification.style.transition = "opacity 0.5s ease";
-    copyNotification.style.zIndex = "1000"; // Ensure it appears above other content
-
-    document.body.appendChild(copyNotification);
-
-    // Trigger the animation
-    setTimeout(() => {
-      copyNotification.style.opacity = "1";
-      setTimeout(() => {
-        copyNotification.style.opacity = "0";
-        setTimeout(() => {
-          document.body.removeChild(copyNotification);
-        }, 500); // Delay for fade-out to complete
-      }, 2000); // Duration for the notification to be visible
-    }, 0); // Initial delay to ensure animation starts after append
+    showNotificationSuccess('Copied!')
 
   }, function() {
     alert("Failed to copy code.");
   });
 }
 
-// Removing duplicates and Query strings
+// *********************************** Htaccess Function ******************************************* //
 
 function cleanCode() {
   let text = document.getElementById("inputCode").value;
+
+  document.querySelector('.htaccess').classList.add('hide-after');
+
+  if (text === "") {
+    showNotificationError("Nothing to Clean!");
+    return;
+}
   let lines = text.split("\n");
 
   // Normalize lines by trimming whitespace and ensuring consistent line breaks
@@ -516,8 +612,3 @@ function cleanCode() {
 
 
 
-// Function to clear both input and output areas
-function clearInputAndOutput() {
-  document.getElementById("inputCode").value = '';
-  document.getElementById("outputCode").textContent = 'Your output will be displayed here !';
-}
