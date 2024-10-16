@@ -242,11 +242,11 @@ function convertToHTML() {
   let text = document.getElementById("inputText").value;
   let lines = text.split("\n");
 
-  document.querySelector('.text-to-html').classList.add('hide-after');
-
   if (text === "") {
     showNotificationError("Please enter a Text!");
     return;
+} else {
+  document.querySelector('.text-to-html').classList.add('hide-after');
 }
 
   let htmlLines = [];
@@ -434,14 +434,13 @@ function clearInputAndOutput() {
 // *********************************** Comments Removing Func ******************************************* //
 
 function removeComments() {
-  const codeInput = document.getElementById('inputCode').value; // Get the input code
-
-  document.querySelector('.comms-rem').classList.add('hide-after');
+  const codeInput = document.getElementById('inputCode').value; 
 
   if (codeInput === "") {
     showNotificationError("Nothing to Remove!");
-
     return;
+} else {
+  document.querySelector('.comms-rem').classList.add('hide-after');
 }
 
   // Remove HTML comments (<!-- -->)
@@ -486,12 +485,13 @@ function copyCleanedCode() {
 function cleanCode() {
   let text = document.getElementById("inputCode").value;
 
-  document.querySelector('.htaccess').classList.add('hide-after');
-
   if (text === "") {
     showNotificationError("Nothing to Clean!");
     return;
-}
+  } else {
+    document.querySelector('.htaccess').classList.add('hide-after');
+  }
+
   let lines = text.split("\n");
 
   // Normalize lines by trimming whitespace and ensuring consistent line breaks
@@ -542,9 +542,9 @@ function cleanCode() {
     const match = trimmedLine.match(urlRegex);
     if (match) {
       const domain = match[3];  // The domain (e.g., "alo.com" or "twitch.tv")
-      const slug = match[4] || '/';  // The slug part (or '/' if not present)
+      let slug = match[4] || '/';  // The slug part (or '/' if not present)
 
-      // If the domain is the primary domain, use the slug
+      // If the domain is the primary domain, process the slug
       if (domain !== primaryDomain) {
         // Count different domains as subdomains
         subdomainCount++;
@@ -552,25 +552,24 @@ function cleanCode() {
         return;  // Skip lines with subdomains
       }
 
-      // Use the slug as the new trimmed line
-      trimmedLine = slug;
-    }
+      // Handle URL-encoded characters and special symbols (%) in the slug
+      if (/%[0-9A-Fa-f]{2}/.test(slug)) {
+        try {
+          let decodedSlug = decodeURIComponent(slug);
+          slug = `"${decodedSlug}"`; // Wrap only the slug in double quotes
 
-    // Handle URL-encoded characters and special symbols (%)
-    if (/%[0-9A-Fa-f]{2}/.test(trimmedLine)) {
-      try {
-        let decodedLine = decodeURIComponent(trimmedLine);
-        trimmedLine = `"${decodedLine}"`; // Enclose the decoded line in double quotes
-
-        // If this line contains %, add a special comment
-        if (!countedSpecialSymbol.has(trimmedLine)) {
-          specialSymbolCount++;
-          countedSpecialSymbol.add(trimmedLine);
+          // If this slug contains %, increment special symbol count
+          if (!countedSpecialSymbol.has(slug)) {
+            specialSymbolCount++;
+            countedSpecialSymbol.add(slug);
+          }
+        } catch (e) {
+          console.warn(`Failed to decode slug: ${slug}`);
         }
-        trimmedLine += '    // Special Symbol';
-      } catch (e) {
-        console.warn(`Failed to decode line: ${trimmedLine}`);
       }
+
+      // Construct the final Redirect 301 line with the processed slug
+      trimmedLine = `Redirect 301 ${slug} /`;
     }
 
     // Track line occurrences to count duplicates
@@ -592,12 +591,10 @@ function cleanCode() {
     }
   }
 
-  // Prepare the final cleaned text
   let cleanedText = Array.from(uniqueLines)
     .filter(line => line !== '')
     .join("\n");
 
-  // Display output and summary
   const summaryText = `
     <p class="color" style="margin-top: -45px;">Queries removed ( ? ) : <span>${queryCount}</span>.</p>
     <p class="color">Duplicates removed : <span>${duplicateCount}</span>.</p>
@@ -606,9 +603,5 @@ function cleanCode() {
     <p class="color">Subdomains removed (dups included) : <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
   `;
 
-  // Combine summary and cleaned text
   document.getElementById("outputCode").innerHTML = summaryText + `<hr class="warning">${cleanedText}`;
 }
-
-
-

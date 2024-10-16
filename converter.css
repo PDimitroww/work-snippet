@@ -220,7 +220,7 @@
 }
 
 .htaccess::after {
-  content: "Example Output: \A /wp-content/zh-1 \A /store";
+  content: "Example Output: \A Redirect 301 /wp-content/zh-1 / \A Redirect 301 /store /";
 }
 
 .comms-rem::after {
