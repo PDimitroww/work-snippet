@@ -61,10 +61,6 @@ function showNotificationSuccess(message) {
     }, 0); 
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  loadTasks();
-});
-
 // function addTask() {
 //   let taskInput = document.getElementById('taskInput');
 //   let taskText = taskInput.value.trim();
