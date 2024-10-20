@@ -1,10 +1,16 @@
+// Selectors
+
+const notification = document.createElement("div");
+const copyNotification = document.createElement("div");
+const taskInput = document.getElementById('checklistTaskInput');
+const taskList = document.getElementById('checklistTaskList');
+const taskListItems = document.querySelectorAll('#checklistTaskList li');
+
 // ******************************** Notifications ********************************** //
 
 function showNotificationError(message) {
-  // Create a temporary element for the notification
-  const notification = document.createElement("div");
   notification.innerText = message;
-  notification.setAttribute("role", "alert"); // Improve accessibility
+  notification.setAttribute("role", "alert");
   notification.style.position = "fixed";
   notification.style.top = "20px";
   notification.style.left = "20px";
@@ -18,7 +24,6 @@ function showNotificationError(message) {
 
   document.body.appendChild(notification);
 
-  // Trigger the animation
   setTimeout(() => {
       notification.style.opacity = "1";
       notification.style.transform = "translateY(0)";
@@ -33,14 +38,12 @@ function showNotificationError(message) {
   }, 0);
 }
 
-
 function showNotificationSuccess(message) {
-  let copyNotification = document.createElement("div");
     copyNotification.innerText = message;
     copyNotification.style.position = "fixed";
     copyNotification.style.top = "20px";
     copyNotification.style.left = "20px";
-    copyNotification.style.backgroundColor = "#7130c3";
+    copyNotification.style.backgroundColor = "#4CAF50";
     copyNotification.style.color = "white";
     copyNotification.style.padding = "10px";
     copyNotification.style.borderRadius = "5px";
@@ -61,81 +64,9 @@ function showNotificationSuccess(message) {
     }, 0); 
 }
 
-// function addTask() {
-//   let taskInput = document.getElementById('taskInput');
-//   let taskText = taskInput.value.trim();
-//   if (taskText === "") {
-//       alert("Please enter a task.");
-//       return;
-//   }
-
-//   let taskList = document.getElementById('taskList');
-//   let li = document.createElement('li');
-//   li.textContent = taskText;
-
-//   let deleteButton = document.createElement('button');
-//   deleteButton.textContent = 'Delete';
-//   deleteButton.className = 'delete';
-//   deleteButton.onclick = function() {
-//       li.remove();
-//       saveTasks();
-//   };
-
-//   li.appendChild(deleteButton);
-//   taskList.appendChild(li);
-
-//   taskInput.value = '';
-//   saveTasks();
-// }
-
-// function saveTasks() {
-//   let tasks = [];
-//   let taskListItems = document.querySelectorAll('#taskList li');
-//   taskListItems.forEach(item => {
-//       tasks.push(item.textContent.replace('Delete', '').trim());
-//   });
-//   document.cookie = "tasks=" + JSON.stringify(tasks) + "; path=/";
-// }
-
-// function loadTasks() {
-//   let cookies = document.cookie.split(';');
-//   for (let cookie of cookies) {
-//       let [name, value] = cookie.split('=');
-//       name = name.trim();
-//       if (name === 'tasks') {
-//           let tasks = JSON.parse(decodeURIComponent(value));
-//           let taskList = document.getElementById('taskList');
-//           tasks.forEach(task => {
-//               let li = document.createElement('li');
-//               li.textContent = task;
-
-//               let deleteButton = document.createElement('button');
-//               deleteButton.textContent = 'Delete';
-//               deleteButton.className = 'delete';
-//               deleteButton.onclick = function() {
-//                   li.remove();
-//                   saveTasks();
-//               };
-
-//               li.appendChild(deleteButton);
-//               taskList.appendChild(li);
-//           });
-//       }
-//   }
-// }
-
-document.addEventListener('DOMContentLoaded', (event) => {
-  loadChecklistTasks();
-  let checkboxes = document.querySelectorAll('#checklistTaskList input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-          saveChecklistTasks();
-      });
-  });
-});
+// =============================== Checklist Tasks ================================= //
 
 function addChecklistTask() {
-  let taskInput = document.getElementById('checklistTaskInput');
   let taskText = taskInput.value.trim();
 
     if (taskText === "") {
@@ -143,7 +74,6 @@ function addChecklistTask() {
       return;
   }
 
-  let taskList = document.getElementById('checklistTaskList');
   let li = document.createElement('li');
 
   let checkbox = document.createElement('input');
@@ -174,7 +104,6 @@ function addChecklistTask() {
 
 function saveChecklistTasks() {
   let tasks = [];
-  let taskListItems = document.querySelectorAll('#checklistTaskList li');
   taskListItems.forEach(item => {
       let task = {
           text: item.childNodes[1].nodeValue.trim(),
@@ -192,7 +121,6 @@ function loadChecklistTasks() {
       name = name.trim();
       if (name === 'checklistTasks') {
           let tasks = JSON.parse(decodeURIComponent(value));
-          let taskList = document.getElementById('checklistTaskList');
           tasks.forEach(task => {
               let li = document.createElement('li');
               if (task.completed) {
@@ -208,7 +136,6 @@ function loadChecklistTasks() {
               };
 
               let textNode = document.createTextNode(task.text);
-
               let deleteButton = document.createElement('button');
               deleteButton.textContent = 'Delete';
               deleteButton.className = 'delete';
@@ -225,6 +152,16 @@ function loadChecklistTasks() {
       }
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadChecklistTasks();
+  let checkboxes = document.querySelectorAll('#checklistTaskList input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+          saveChecklistTasks();
+      });
+  });
+});
 
 function deleteTask(button) {
   let li = button.parentElement;
@@ -344,6 +281,7 @@ function convertToHTML() {
 
   // Display the resulting HTML
   document.getElementById("outputHTML").textContent = htmlText;
+  showNotificationSuccess('Converted!')
 }
 
 
@@ -369,62 +307,6 @@ function copyToClipboard() {
   }
   window.getSelection().removeAllRanges(); // Clear selection
 
-}
-
-// ******************************* Remove Text ******************************* // 
-
-function clearText() {
-  let inputElement = document.getElementById("inputText");
-  let outputElement = document.getElementById("outputHTML");
-
-  document.querySelector('.text-to-html').classList.remove('hide-after');
-
-  // Check if the input value is already empty
-  if (inputElement.value === "") {
-      showNotificationError("Already Clear!");
-      return; 
-  }
-
-  // Clear the input value if it's not empty
-  inputElement.value = "";
-  outputElement.textContent = ""; 
-}
-
-// *********************************** Htaccess inputs clear ******************************************* //
-
-function clearFunc() {
-  let inputElement2 = document.getElementById("inputCode");
-  let outputElement2 = document.getElementById("outputCode");
-
-
-  document.querySelector('.htaccess').classList.remove('hide-after');
-
-  if (inputElement2.value === "") {
-    showNotificationError("Already Clear!");
-
-    return;
-}
-  inputElement2.value = ""; 
-  outputElement2.textContent = ""; 
-}
-
-
-// *********************************** Comments inputs clear ******************************************* //
-
-function clearInputAndOutput() {
-  let inputElement2 = document.getElementById("inputCode");
-  let outputElement2 = document.getElementById("outputCode");
-
-
-  document.querySelector('.comms-rem').classList.remove('hide-after');
-
-  if (inputElement2.value === "") {
-    showNotificationError("Already Clear!");
-
-    return;
-}
-  inputElement2.value = ""; 
-  outputElement2.textContent = ""; 
 }
 
 // *********************************** Comments Removing Func ******************************************* //
@@ -454,21 +336,18 @@ function removeComments() {
 
   // Display the cleaned code in the output area
   document.getElementById('outputCode').textContent = cleanedCode;
+  showNotificationSuccess('Removed!')
 }
 
-// Function to copy the cleaned code to clipboard
 function copyCleanedCode() {
-  const outputCode = document.getElementById('outputCode').textContent; // Get cleaned code
-
+  const outputCode = document.getElementById('outputCode').textContent;
 
   if (outputCode === "") {
     showNotificationError("Nothing to Copy!");
-
-    return; // Stop execution if the input is already clear
+    return;
 }
 
   navigator.clipboard.writeText(outputCode).then(function() {
-    // Create a temporary element for the "Copied!" notification
     showNotificationSuccess('Copied!')
 
   }, function() {
@@ -599,5 +478,119 @@ function cleanCode() {
     <p class="color">Subdomains removed (dups included) : <span>${subdomainCount}</span>. Subdomains: <span>${Array.from(subdomains).join(', ')}</span></p>
   `;
 
-  document.getElementById("outputCode").innerHTML = summaryText + `<hr class="warning">${cleanedText}`;
+  document.getElementById("outputCode").innerHTML = summaryText + `<hr class="line-thru">${cleanedText}`;
+
+  showNotificationSuccess('Formated!')
+}
+
+document.getElementById("sortButton").addEventListener("click", sortRedirectLines);
+
+function sortRedirectLines() {
+  let outputCodeElement = document.getElementById("outputCode");
+  let outputHTML = outputCodeElement.innerHTML;
+
+  if (outputHTML.trim() === "") {
+    showNotificationError("Nothing to Sort!");
+    return;
+  }
+
+  document.querySelector('.htaccess').classList.add('hide-after');
+
+  let [summaryPart, redirectPart] = outputHTML.split('<hr class="line-thru">');
+
+  if (!redirectPart) {
+    showNotificationError("No Redirect 301 lines to sort!");
+    return;
+  }
+
+  let redirectLines = redirectPart.split("\n");
+  let sortedRedirectLines = redirectLines
+  .filter(line => line.includes("Redirect 301"))
+  .sort((a, b) => {
+    const aPath = a.split(" ")[2].replace(/^"|"$/g, '');
+    const bPath = b.split(" ")[2].replace(/^"|"$/g, '');
+    return bPath.localeCompare(aPath, 'en', { sensitivity: 'base' });
+  });
+
+  let cleanedRedirectText = sortedRedirectLines.join("\n");
+
+  outputCodeElement.innerHTML = `${summaryPart}<hr class="line-thru">${cleanedRedirectText}`;
+  showNotificationSuccess('Sorted')
+
+  let existingMessage = document.getElementById("sortMessage");
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+
+let pTag = document.createElement("p");
+pTag.id = "sortMessage";
+pTag.innerHTML = `Make sure to redirect all links with a high number of referring domains to the <span class="warning">Homepage</span> if you have a <span class="warning">Sitemap</span>`;
+
+let msgDiv = document.getElementById("msg");
+msgDiv.appendChild(pTag);
+}
+
+// ******************************* Remove Text HTML ******************************* // 
+
+function clearText() {
+  let inputElement = document.getElementById("inputText");
+  let outputElement = document.getElementById("outputHTML");
+
+  document.querySelector('.text-to-html').classList.remove('hide-after');
+
+  // Check if the input value is already empty
+  if (inputElement.value === "") {
+      showNotificationError("Already Clear!");
+      return; 
+  }
+
+  // Clear the input value if it's not empty
+  inputElement.value = "";
+  outputElement.textContent = ""; 
+  showNotificationSuccess('Cleared!')
+}
+
+// *********************************** Comments inputs clear ******************************************* //
+
+function clearInputAndOutput() {
+  let inputElement2 = document.getElementById("inputCode");
+  let outputElement2 = document.getElementById("outputCode");
+
+
+  document.querySelector('.comms-rem').classList.remove('hide-after');
+
+  if (inputElement2.value === "") {
+    showNotificationError("Already Clear!");
+
+    return;
+}
+  inputElement2.value = ""; 
+  outputElement2.textContent = ""; 
+  showNotificationSuccess('Cleared!')
+}
+
+
+// *********************************** Htaccess inputs clear ******************************************* //
+
+function clearFunc() {
+  let inputElement2 = document.getElementById("inputCode");
+  let outputElement2 = document.getElementById("outputCode");
+  let msgDiv = document.getElementById("msg");
+
+  document.querySelector('.htaccess').classList.remove('hide-after');
+
+  if (inputElement2.value === "") {
+    showNotificationError("Already Clear!");
+    return;
+  }
+
+  inputElement2.value = ""; 
+  outputElement2.innerHTML = "";
+
+  let existingMessage = document.getElementById("sortMessage");
+  if (existingMessage) {
+    msgDiv.removeChild(existingMessage);
+  }
+
+  showNotificationSuccess('Cleared!');
 }

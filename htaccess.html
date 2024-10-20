@@ -37,6 +37,8 @@
 
       <p>Now working with full <span class="beta">Domains</span> & <span class="beta">Subdomains</span>.</p>
 
+      <div id="msg"></div>
+
         <div class="row">
             <div class="grid-1-text">
                 <h2 class="subtitle">Redirects here</h2>
@@ -51,11 +53,15 @@
                 ></textarea>
                 <div class="flex-row">
                     <button class="convert-button" onclick="cleanCode()">
-                        Clean Text
+                        Format Redirects
                     </button>
-                    <button class="convert-button bg-2" onclick="clearFunc()">
-                        Clear Text
+                    <button class="convert-button bg-2" id="sortButton">
+                      Sort by Path Depth
                     </button>
+                    <button class="convert-button bg-2 span-2" onclick="clearFunc()">
+                      Clear Text
+                  </button>
+
                 </div>
             </div>
         

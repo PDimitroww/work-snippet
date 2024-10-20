@@ -41,11 +41,20 @@
     overflow-y: scroll;
     box-shadow: 0 0 5px 2px #bd36cc;
   }
-  
+
+  .flex-row, .flex-row-2 {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .flex-row-2 {
+    grid-template-columns: repeat(2,1fr);
+  }
+
   .convert-button {
     display: block;
-    width: 20%;
     padding: 10px;
+    width: 245px;
     font-size: 18px;
     color: #f1f1f1;
     /* background: linear-gradient(90deg, #12b5de 12%, #7130c3 40%, #ff3bd4 80%); */
@@ -64,7 +73,6 @@
     /* background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%); */
     background: linear-gradient(90deg, #ff3bd4 2%, #7130c3 49%, #ffc400 87%);
   }
-  
 
   .subtitle {
     font-size: 30px;
@@ -172,10 +180,6 @@
   outline: none;
 }
 
-.flex-row {
-  display: flex;
-}
-
 .bg-2 {
   /* background: linear-gradient(90deg, #ff3bd4 30%, #7130c3 60%, #12b5de 90%); */
     background: linear-gradient(90deg, #ff3bd4 2%, #7130c3 49%, #ffc400 87%);
@@ -185,9 +189,8 @@
   background: linear-gradient(90deg, #ffc400 17%, #7130c3 50%, #ff3bd4 99%);
 }
 
-.warning {
+.line-thru {
   border: none;
-  /* border-top: 2px solid #bd95ff;  */
   border-top: 2px solid #ffc400; 
   margin: 10px 0;
 }
@@ -233,4 +236,13 @@
 
 .hide-after::after {
   content: ""; /* Removes the content of ::after */
+}
+#sortMessage {
+  width: 50%;
+  margin: 20px auto 0px auto;
+  padding: 20px;
+  border-radius: 36px;
+  border: 1px solid #fff;
+  border: 1px solid #6c38c5;
+  box-shadow: 0 0 53px 0 #280736;
 }
